@@ -20,7 +20,7 @@ Puma starting in single mode...
 Use Ctrl-C to stop
  
 ```
-You need to see `localhost:3000` this is what you'll need to copy and paste in your desired internet browser. 
+You need to see `localhost:3000` this is what you'll need to run in the background. Next Open up the index.html folder and you see the game waiting for you to click start. 
 ### Congrates You've Done It!!!
 
 
