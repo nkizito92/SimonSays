@@ -1,3 +1,39 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0 auto ;
+}
+
 div {
+    padding: 20px 0;
+    width: 500px;
     color: red;
+}
+#players {
+    width: 300px;
+    position: absolute;
+    font-size: small;
+    right:0;
+    top: 0;
+    border: wheat 1px solid;
+}
+
+.keybutton {
+    box-shadow:   2px #e2f8f8;
+    background-color: #00ffff;
+    padding: 30px;
+    color: black;
+    font-weight: 800;
+}
+
+main {
+    width: 650px;
+    background-color: #000000;
+}
+
+#gm {
+    position: relative;
+    margin: 0 auto;
+    top:0;
+    text-align: center;
+    color: #ffff;
 }

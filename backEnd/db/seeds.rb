@@ -9,9 +9,10 @@
     ames = User.create(name: "Ames")
     jack = User.create(name: "Jack")
 
-    game = Game.create(user_id: james.id, player: james.name, highscore: "8", score: "0")
-    game2 = Game.create(user_id: james.id, player: james.name, highscore: "10", score: "0")
+    game = Game.create(user_id: james.id, player: james.name, highscore: 8, score: 0)
+    game2 = Game.create(user_id: james.id, player: james.name, highscore: 10, score: 0)
     james.games << game
     james.games << game2
-
+    ames.games.build([{player: ames.name, highscore: 80, score: 0}, {player: ames.name, highscore: 10, score: 0} ])
+    ames.save
     james.save

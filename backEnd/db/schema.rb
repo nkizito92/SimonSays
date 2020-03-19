@@ -14,8 +14,8 @@ ActiveRecord::Schema.define(version: 2020_03_18_193611) do
 
   create_table "games", force: :cascade do |t|
     t.string "player"
-    t.string "highscore"
-    t.string "score"
+    t.integer "highscore"
+    t.integer "score"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
