@@ -16,16 +16,24 @@ function startsTheGame() {
                 keyButton.className = "keybutton"
                 keyButton.innerHTML = "keys"
                 keyButtons.appendChild(keyButton)
+                cpuClicksBtn(keyButton)
             }
 
         })
-    // buttons appear 
     // cpu clicks buttons and they each blink once
     // you click the same buttons and pass the first level
     // cpu click buttons and adds one more click to follow each level
 }
 
 startGame.addEventListener("click", startsTheGame)
+
+function cpuClicksBtn(btn) {
+    btn.addEventListener("click", (e) => {
+        e.target.style.backgroundColor = "green"
+        if (e.target.style.backgroundColor === "green")
+            (setTimeout(() => e.target.style.backgroundColor = "#00ffff", 400))
+    })
+}
 
 function hightScore(highscores) {
     return highscores.games.sort((a, b) => b.highscore - a.highscore)

@@ -14,7 +14,7 @@ div {
     font-size: small;
     right:0;
     top: 0;
-    border: wheat 1px solid;
+    border: wheat 1px infinite;
 }
 
 #keysbuttons{
@@ -29,13 +29,17 @@ div {
     text-align: center;
     box-shadow:  2px #e2f8f8;
     background-color: #00ffff;
-    padding: 30px;
+    padding: 25px;
     color: black;
     font-weight: 800;
+}
+.keybutton:hover {
+    cursor: pointer;
 }
 
 main {
     width: 650px;
+    height: 750px;
     background-color: #000000;
 }
 
