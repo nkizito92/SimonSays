@@ -4,12 +4,13 @@ const createUser = document.querySelector("#createUser")
 const startGame = document.querySelector("#startbtn")
 
 const keyButtons = document.querySelector("#keysbuttons")
+let gm = document.querySelector("#gm")
 
 function startsTheGame() {
     fetch("http://localhost:3000/games")
         .then(res => res.json())
         .then(game => {
-            let gm = document.querySelector("#gm")
+            main.appendChild(keyButtons)
             let bestPlayer = gamehightScore(game)[0];
             gm.innerHTML = `${bestPlayer.player}'s HightScore: ${bestPlayer.highscore}`
             startGame.style.display = "Restart Game"
@@ -21,22 +22,43 @@ function startsTheGame() {
     // cpu click buttons and adds one more click to follow each level
 }
 
+const restartGame = document.createElement("button")
 function buttonSet() {
-    const restartGame = document.createElement("button")
     restartGame.innerHTML = "Restart Game"
     main.replaceChild(restartGame, startGame)
+
+    // End Game Button
+    const endGame = document.createElement("button")
+    endGame.innerHTML = "End Game"
+    endGame.id = "endGame"
+    main.appendChild(endGame)
+    endOrRestartGameBtnConfig(endGame)
+}
+
+function restartsTheGame(keyButton) {
+    restartGame.addEventListener('click', () => {
+        keyButtons.removeChild(keyButton)
+        setTimeout(() => keyButtons.appendChild(keyButton), 400)
+    })
+}
+function endOrRestartGameBtnConfig(endGame) {
     for (let i = 0; i < 6; i++) {
         let keyButton = document.createElement("div")
         keyButton.className = "keybutton"
         keyButton.innerHTML = "keys"
         keyButtons.appendChild(keyButton)
         cpuClicksBtn(keyButton)
-        // Reset button here
-        restartGame.addEventListener('click', () => {
+
+        // End Game Event
+        endGame.addEventListener("click", () => {
             keyButtons.removeChild(keyButton)
+            main.removeChild(endGame)
             main.replaceChild(startGame, restartGame)
             startGame.addEventListener("click", startsTheGame)
+            gm.innerHTML = ""
         })
+        //Restarts game
+        restartsTheGame(keyButton)
     }
 }
 
