@@ -8,9 +8,14 @@
 
 <body>
     <main>
+        <button id="startbtn">Start Game</button>
         <div id="gm"></div>
         <div id="keysbuttons"></div>
     </main>
+    <form action="http://localhost:3000/users" method="post">
+        <input id="name" type="text" name="name"> <br>
+        <input id="createUser" type="submit" value="Create Player">
+    </form>
     <div id="players"></div>
 
     <script src="index.js"> </script>

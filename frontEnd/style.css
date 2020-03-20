@@ -5,7 +5,7 @@
 
 div {
     padding: 20px 0;
-    width: 500px;
+    width: auto;
     color: red;
 }
 #players {
@@ -17,8 +17,17 @@ div {
     border: wheat 1px solid;
 }
 
+#keysbuttons{
+    text-align: center;
+    margin:  0 auto;
+}
+
 .keybutton {
-    box-shadow:   2px #e2f8f8;
+    position: relative;
+    margin: 5px 2px;
+    display: inline-block;
+    text-align: center;
+    box-shadow:  2px #e2f8f8;
     background-color: #00ffff;
     padding: 30px;
     color: black;
@@ -36,4 +45,7 @@ main {
     top:0;
     text-align: center;
     color: #ffff;
+}
+form {
+    margin: 0 auto;
 }
