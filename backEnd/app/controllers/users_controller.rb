@@ -4,4 +4,9 @@ class UsersController < ApplicationController
         users = User.all 
         render json: users, include: [:games]
     end 
+
+    def create 
+        user = User.create(name: params[:name])
+        render json: user
+    end
 end
