@@ -2,6 +2,7 @@ const body = document.querySelector("body");
 const main = document.querySelector("main")
 const createUser = document.querySelector("#createUser")
 const startGame = document.querySelector("#startbtn")
+
 const keyButtons = document.querySelector("#keysbuttons")
 
 function startsTheGame() {
@@ -11,18 +12,32 @@ function startsTheGame() {
             let gm = document.querySelector("#gm")
             let bestPlayer = gamehightScore(game)[0];
             gm.innerHTML = `${bestPlayer.player}'s HightScore: ${bestPlayer.highscore}`
-            for (let i = 0; i < 6; i++) {
-                let keyButton = document.createElement("div")
-                keyButton.className = "keybutton"
-                keyButton.innerHTML = "keys"
-                keyButtons.appendChild(keyButton)
-                cpuClicksBtn(keyButton)
-            }
-
+            startGame.style.display = "Restart Game"
+            startGame.removeEventListener('click', startsTheGame)
+            buttonSet()
         })
     // cpu clicks buttons and they each blink once
     // you click the same buttons and pass the first level
     // cpu click buttons and adds one more click to follow each level
+}
+
+function buttonSet() {
+    const restartGame = document.createElement("button")
+    restartGame.innerHTML = "Restart Game"
+    main.replaceChild(restartGame, startGame)
+    for (let i = 0; i < 6; i++) {
+        let keyButton = document.createElement("div")
+        keyButton.className = "keybutton"
+        keyButton.innerHTML = "keys"
+        keyButtons.appendChild(keyButton)
+        cpuClicksBtn(keyButton)
+        // Reset button here
+        restartGame.addEventListener('click', () => {
+            keyButtons.removeChild(keyButton)
+            main.replaceChild(startGame, restartGame)
+            startGame.addEventListener("click", startsTheGame)
+        })
+    }
 }
 
 startGame.addEventListener("click", startsTheGame)
