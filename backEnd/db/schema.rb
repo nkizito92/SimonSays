@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_18_193611) do
+ActiveRecord::Schema.define(version: 2020_03_20_173155) do
+
+  create_table "buttons", force: :cascade do |t|
+    t.string "name"
+    t.string "sound"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "games", force: :cascade do |t|
     t.string "player"

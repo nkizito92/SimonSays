@@ -8,7 +8,12 @@
     james = User.create(name: "James")
     ames = User.create(name: "Ames")
     jack = User.create(name: "Jack")
-
+    button1 = Button.create(name: "A1", sound: "sounds1")
+    button2 = Button.create(name: "A2", sound: "sounds2")
+    button3 = Button.create(name: "B1", sound: "sounds3")
+    button4 = Button.create(name: "G1", sound: "sounds4")
+    button5 = Button.create(name: "F2", sound: "sounds5")
+    button6 = Button.create(name: "F4", sound: "sounds6")
     game = Game.create(user_id: james.id, player: james.name, highscore: 8, score: 0)
     game2 = Game.create(user_id: james.id, player: james.name, highscore: 10, score: 0)
     james.games << game

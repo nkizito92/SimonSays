@@ -52,6 +52,7 @@ function endOrRestartGameBtnConfig(endGame) {
         // End Game Event
         endGame.addEventListener("click", () => {
             keyButtons.removeChild(keyButton)
+            debugger
             main.removeChild(endGame)
             main.replaceChild(startGame, restartGame)
             startGame.addEventListener("click", startsTheGame)
@@ -116,9 +117,12 @@ function submitUser(name) {
         .then(res => res.json())
         .then(user => console.log(user))
 }
-
+// Create user 
 let NewUser = document.querySelector("#name")
 createUser.addEventListener("click", (e) => {
     submitUser(NewUser.value)
     e.preventDefault()
 })
+
+let btn = new ButtonsAdapter("http://localhost:3000/buttons")
+btn.fetchButtons()

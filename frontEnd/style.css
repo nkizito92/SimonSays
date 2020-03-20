@@ -18,16 +18,21 @@ div {
 }
 
 #keysbuttons{
+    position: relative;
+    top: 200px;
     text-align: center;
     margin:  0 auto;
 }
 
 .keybutton {
     position: relative;
-    margin: 5px 2px;
+    margin: 5px 3px;
     display: inline-block;
     text-align: center;
-    box-shadow:  2px #e2f8f8;
+    box-shadow:  2px 2px 2px #aafdfd,
+     2px -2px 2px #aafdfd,
+     -2px 2px 2px #aafdfd,
+     -2px -2px 2px #aafdfd;
     background-color: #00ffff;
     padding: 25px;
     color: black;
@@ -39,10 +44,15 @@ div {
 
 main {
     width: 650px;
-    height: 750px;
+    height: 400px;
     background-color: #000000;
 }
-
+#endGame {
+    position: absolute;
+    color: red;
+    top: 0;
+    right: 350px;
+}
 #gm {
     position: relative;
     margin: 0 auto;
