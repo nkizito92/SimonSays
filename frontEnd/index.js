@@ -1,3 +1,5 @@
+let btn = new ButtonsAdapter("http://localhost:3000/buttons")
+
 const body = document.querySelector("body");
 const main = document.querySelector("main")
 const createUser = document.querySelector("#createUser")
@@ -10,12 +12,13 @@ function startsTheGame() {
     fetch("http://localhost:3000/games")
         .then(res => res.json())
         .then(game => {
-            main.appendChild(keyButtons)
+            btn.fetchButtons()
             let bestPlayer = gamehightScore(game)[0];
-            gm.innerHTML = `${bestPlayer.player}'s HightScore: ${bestPlayer.highscore}`
+            gm.innerHTML = `${bestPlayer.user.name}'s HightScore: ${bestPlayer.highscore}`
             startGame.style.display = "Restart Game"
             startGame.removeEventListener('click', startsTheGame)
             buttonSet()
+            cpuClicksBtn(keyButtons)
         })
     // cpu clicks buttons and they each blink once
     // you click the same buttons and pass the first level
@@ -26,7 +29,6 @@ const restartGame = document.createElement("button")
 function buttonSet() {
     restartGame.innerHTML = "Restart Game"
     main.replaceChild(restartGame, startGame)
-
     // End Game Button
     const endGame = document.createElement("button")
     endGame.innerHTML = "End Game"
@@ -35,41 +37,34 @@ function buttonSet() {
     endOrRestartGameBtnConfig(endGame)
 }
 
-function restartsTheGame(keyButton) {
+function restartsTheGame() {
     restartGame.addEventListener('click', () => {
-        keyButtons.removeChild(keyButton)
-        setTimeout(() => keyButtons.appendChild(keyButton), 400)
+        Button.removeButtons()
+        setTimeout(() => Button.renderAll(), 400)
     })
 }
 function endOrRestartGameBtnConfig(endGame) {
-    for (let i = 0; i < 6; i++) {
-        let keyButton = document.createElement("div")
-        keyButton.className = "keybutton"
-        keyButton.innerHTML = "keys"
-        keyButtons.appendChild(keyButton)
-        cpuClicksBtn(keyButton)
-
-        // End Game Event
-        endGame.addEventListener("click", () => {
-            keyButtons.removeChild(keyButton)
-            debugger
-            main.removeChild(endGame)
-            main.replaceChild(startGame, restartGame)
-            startGame.addEventListener("click", startsTheGame)
-            gm.innerHTML = ""
-        })
-        //Restarts game
-        restartsTheGame(keyButton)
-    }
+    // End Game Event
+    endGame.addEventListener("click", () => {
+        window.location.reload()
+        // Button.removeButtons()
+        // main.removeChild(endGame)
+        // main.replaceChild(startGame, restartGame)
+        // startGame.addEventListener("click", startsTheGame)
+        // gm.innerHTML = ""
+    })
+    //Restarts game
+    restartsTheGame()
 }
 
 startGame.addEventListener("click", startsTheGame)
 
 function cpuClicksBtn(btn) {
     btn.addEventListener("click", (e) => {
+        e.target = document.querySelector(".keybutton")
         e.target.style.backgroundColor = "green"
         if (e.target.style.backgroundColor === "green")
-            (setTimeout(() => e.target.style.backgroundColor = "#00ffff", 400))
+            (setTimeout(() => e.target.style.backgroundColor = "", 300))
     })
 }
 
@@ -87,12 +82,10 @@ fetch("http://localhost:3000/users")
             let theHighestScore = hightScore(player)
             let h1 = document.createElement("h1")
             for (let i = 0; i < theHighestScore.length; i++) {
-                if (theHighestScore[i].highscore === null) {
-                    h1.innerHTML = "No games played!"
-                }
-                else {
-                    h1.innerHTML = `${player.name}'s HighScore: ${theHighestScore[0].highscore}`
-                }
+                if (theHighestScore[i].highscore === null)
+                    (h1.innerHTML = "No games played!")
+                else
+                    (h1.innerHTML = `${player.name}'s HighScore: ${theHighestScore[0].highscore}`)
             }
             let div = document.querySelector('#players')
             let user = document.createElement("div");
@@ -124,5 +117,3 @@ createUser.addEventListener("click", (e) => {
     e.preventDefault()
 })
 
-let btn = new ButtonsAdapter("http://localhost:3000/buttons")
-btn.fetchButtons()

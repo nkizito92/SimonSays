@@ -3,6 +3,10 @@
     margin: 0 auto ;
 }
 
+body {
+    background-color: #808080;
+}
+
 div {
     padding: 20px 0;
     width: auto;
@@ -19,7 +23,7 @@ div {
 
 #keysbuttons{
     position: relative;
-    top: 200px;
+    top: 180px;
     text-align: center;
     margin:  0 auto;
 }
@@ -42,13 +46,34 @@ div {
     cursor: pointer;
 }
 
+button {
+    border: 1px #00ffff solid;
+    border-radius: 5px;
+    background-color: #00000000;
+    padding: 10px;
+    font-size: large;
+    color: #00ffff;
+
+}
+button:hover, #endGame:hover {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
+
+button:active, #endGame:active {
+    background-color: darkgreen;
+    color: white;
+}
+
 main {
     width: 650px;
     height: 400px;
-    background-color: #000000;
+    background-color: #252525;
 }
 #endGame {
     position: absolute;
+    border: 1px red solid;
     color: red;
     top: 0;
     right: 350px;

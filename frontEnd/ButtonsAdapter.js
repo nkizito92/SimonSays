@@ -7,7 +7,12 @@ class ButtonsAdapter {
     fetchButtons() {
         fetch(this.url)
             .then(res => res.json())
-            .then(btnObj => )
+            .then(btnObj => {
+                for (let btn in btnObj) {
+                    let newBtn = new Button(btnObj[btn])
+                    newBtn.fullyRender()
+                }
+            })
     }
 
 
