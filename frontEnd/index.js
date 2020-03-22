@@ -12,45 +12,70 @@ function startsTheGame() {
     fetch("http://localhost:3000/games")
         .then(res => res.json())
         .then(game => {
-            btn.fetchButtons()
+            if (keyButtons.childElementCount === 0) {
+                btn.fetchButtons()
+            }
             let bestPlayer = gamehightScore(game)[0];
             gm.innerHTML = `${bestPlayer.user.name}'s HightScore: ${bestPlayer.highscore}`
-            startGame.style.display = "Restart Game"
+            startGame.style.innerHTML = "Restart Game"
             startGame.removeEventListener('click', startsTheGame)
             buttonSet()
-            cpuClicksBtn(keyButtons)
-            setTimeout(() => cpuPressbuttons(), 3000)
+            // userClicksBtn(keyButtons)
+            setTimeout(() => cpuPressbuttons(keyButtons), 3000)
         })
     // cpu clicks buttons and they each blink once
     // you click the same buttons and pass the first level
     // cpu click buttons and adds one more click to follow each level
 }
 
-function cpuPressbuttons() {
+function cpuPressbuttons(btn) {
     // array set to choose for cpu to press
     let started = -1
     let arrSet = []
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 1; i++) {
         let indexSet = Math.floor(6 * Math.random(1))
         arrSet.push(indexSet)
     }
     setInterval(() => {
         if (started++ < arrSet.length - 1) {
-            // let index = Math.floor(6 * Math.random(1))
             let btton = document.querySelectorAll(".keybutton")
-            btton[arrSet[started]].style.backgroundColor = "red"
-            if (btton[arrSet[started]].style.backgroundColor === "red")
-                (setTimeout(() => btton[arrSet[started]].style.backgroundColor = "", 300))
-        } else {
-            clearInterval
-        }
+            debugger
+            let selectedBtn = btton[arrSet[started]]
+            colorToggle(selectedBtn, "red", 500)
+        } else
+            (clearInterval)
     }, 600)
+    userClicksBtn(arrSet, btn)
+
 }
 
+function colorToggle(obj, color, time) {
+    obj.style.backgroundColor = color
+    if (obj.style.backgroundColor === color)
+        (setTimeout(() => obj.style.backgroundColor = "", time))
+}
+// user clicks the button
+function userClicksBtn(arr, btn) {
+    btn.addEventListener("click", (e) => {
+        e.target = document.querySelector(".keybutton")
+        colorToggle(e.target, "green", 300)
+        const key = parseInt(e.target.id.split("key-")[1]) - 1
+        let index = 0;
+        if (key === arr[index]) {
+            index++
+            if (index === arr.length) {
+                index = 0
+                startsTheGame()
+            }
+        } else {
+            index = 0
+        }
+    })
+}
 const restartGame = document.createElement("button")
 function buttonSet() {
     restartGame.innerHTML = "Restart Game"
-    main.replaceChild(restartGame, startGame)
+    // main.replaceChild(restartGame, startGame)
     // End Game Button
     const endGame = document.createElement("button")
     endGame.innerHTML = "End Game"
@@ -80,15 +105,6 @@ function endOrRestartGameBtnConfig(endGame) {
 }
 
 startGame.addEventListener("click", startsTheGame)
-
-function cpuClicksBtn(btn) {
-    btn.addEventListener("click", (e) => {
-        e.target = document.querySelector(".keybutton")
-        e.target.style.backgroundColor = "green"
-        if (e.target.style.backgroundColor === "green")
-            (setTimeout(() => e.target.style.backgroundColor = "", 300))
-    })
-}
 
 function hightScore(highscores) {
     return highscores.games.sort((a, b) => b.highscore - a.highscore)
