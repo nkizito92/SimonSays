@@ -56,7 +56,8 @@ button {
 
 }
 button:hover, #endGame:hover {
-    background-color: white;
+    background-color: #009e9e;
+    border: 1px #00ffff solid;
     color: black;
     cursor: pointer;
 }
