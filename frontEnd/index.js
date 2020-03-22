@@ -19,10 +19,32 @@ function startsTheGame() {
             startGame.removeEventListener('click', startsTheGame)
             buttonSet()
             cpuClicksBtn(keyButtons)
+            setTimeout(() => cpuPressbuttons(), 3000)
         })
     // cpu clicks buttons and they each blink once
     // you click the same buttons and pass the first level
     // cpu click buttons and adds one more click to follow each level
+}
+
+function cpuPressbuttons() {
+    // array set to choose for cpu to press
+    let started = -1
+    let arrSet = []
+    for (let i = 0; i < 2; i++) {
+        let indexSet = Math.floor(6 * Math.random(1))
+        arrSet.push(indexSet)
+    }
+    setInterval(() => {
+        if (started++ < arrSet.length - 1) {
+            // let index = Math.floor(6 * Math.random(1))
+            let btton = document.querySelectorAll(".keybutton")
+            btton[arrSet[started]].style.backgroundColor = "red"
+            if (btton[arrSet[started]].style.backgroundColor === "red")
+                (setTimeout(() => btton[arrSet[started]].style.backgroundColor = "", 300))
+        } else {
+            clearInterval
+        }
+    }, 600)
 }
 
 const restartGame = document.createElement("button")

@@ -19,7 +19,6 @@ class Button {
 
     static removeButtons() {
         Button.all.forEach(btn => {
-            debugger
             btn.keyPair.removeChild(btn.keybtn)
         })
     }
