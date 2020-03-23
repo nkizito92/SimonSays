@@ -2,9 +2,9 @@ let btn = new ButtonsAdapter("http://localhost:3000/buttons")
 
 const body = document.querySelector("body");
 const main = document.querySelector("main")
-const createUser = document.querySelector("#createUser")
 const startGame = document.querySelector("#startbtn")
-
+let points = document.querySelector("#points")
+let point = 0;
 const keyButtons = document.querySelector("#keysbuttons")
 let gm = document.querySelector("#gm")
 
@@ -17,11 +17,14 @@ function startsTheGame() {
             }
             let bestPlayer = gamehightScore(game)[0];
             gm.innerHTML = `${bestPlayer.user.name}'s HightScore: ${bestPlayer.highscore}`
+            points.innerHTML = `Score: ${point}`
+            point++
             startGame.style.innerHTML = "Restart Game"
             startGame.removeEventListener('click', startsTheGame)
             buttonSet()
             // userClicksBtn(keyButtons)
             setTimeout(() => cpuPressbuttons(keyButtons), 3000)
+
         })
     // cpu clicks buttons and they each blink once
     // you click the same buttons and pass the first level
@@ -32,21 +35,20 @@ function cpuPressbuttons(btn) {
     // array set to choose for cpu to press
     let started = -1
     let arrSet = []
-    for (let i = 0; i < 1; i++) {
+    for (let i = 0; i < 3; i++) {
         let indexSet = Math.floor(6 * Math.random(1))
         arrSet.push(indexSet)
     }
     setInterval(() => {
         if (started++ < arrSet.length - 1) {
             let btton = document.querySelectorAll(".keybutton")
-            debugger
             let selectedBtn = btton[arrSet[started]]
             colorToggle(selectedBtn, "red", 500)
         } else
             (clearInterval)
     }, 600)
-    userClicksBtn(arrSet, btn)
-
+    //user clicks button
+    btn.addEventListener("click", (e) => clicked(e, arrSet))
 }
 
 function colorToggle(obj, color, time) {
@@ -54,23 +56,38 @@ function colorToggle(obj, color, time) {
     if (obj.style.backgroundColor === color)
         (setTimeout(() => obj.style.backgroundColor = "", time))
 }
-// user clicks the button
-function userClicksBtn(arr, btn) {
-    btn.addEventListener("click", (e) => {
-        e.target = document.querySelector(".keybutton")
-        colorToggle(e.target, "green", 300)
-        const key = parseInt(e.target.id.split("key-")[1]) - 1
-        let index = 0;
-        if (key === arr[index]) {
-            index++
-            if (index === arr.length) {
+
+let newArr = []
+let index = 0;
+function clicked(e, arr) {
+    e.target = document.querySelector(".keybutton")
+    colorToggle(e.target, "green", 300)
+    const key = parseInt(e.target.id.split("key-")[1]) - 1
+    newArr.push(key)
+    let copyArr1 = newArr
+    const copyArr2 = arr
+    debugger
+    if (key === arr[index]) {
+        index++
+        if (copyArr1.length === copyArr2.length) {
+            if (copyArr1.join(" ") === copyArr2.join(" ")) {
                 index = 0
+                newArr = []
                 startsTheGame()
             }
-        } else {
-            index = 0
         }
-    })
+    } else {
+        index = 0
+        newArr = []
+        alert("You Failed Try again")
+        userForm()
+        let endTheGame = document.createElement("button")
+        endTheGame.innerHTML = "End The Game"
+        endTheGame.addEventListener("click", () => window.location.reload())
+        main.appendChild(endTheGame)
+        Button.removeButtons()
+        // setTimeout(() => window.location.reload(), 12000)
+    }
 }
 const restartGame = document.createElement("button")
 function buttonSet() {
@@ -133,6 +150,30 @@ fetch("http://localhost:3000/users")
             user.append(h1)
         })
     })
+function userForm() {
+    let form = document.createElement("form")
+    form.action = "http://localhost:3000/users"
+    form.method = "post"
+    let userInput = document.createElement("input")
+    userInput.name = "name"
+    userInput.id = "name"
+    userInput.type = "text"
+    userInput.placeholder = "Your Name"
+
+    let yourScore = document.createElement("input")
+    yourScore.name = "highscore"
+    yourScore.type = "number"
+    yourScore.value = point - 1
+    yourScore.hidden
+
+    let submitBtn = document.createElement("input")
+    submitBtn.name = "submit"
+    submitBtn.id = "createUser"
+    submitBtn.type = "submit"
+    submitBtn.value = "Post Score"
+    form.append(userInput, submitBtn, yourScore)
+    main.appendChild(form)
+}
 
 function submitUser(name) {
     fetch("http://localhost:3000/users", {
@@ -149,9 +190,11 @@ function submitUser(name) {
         .then(user => console.log(user))
 }
 // Create user 
+const createUser = document.querySelector("#createUser")
 let NewUser = document.querySelector("#name")
-createUser.addEventListener("click", (e) => {
-    submitUser(NewUser.value)
-    e.preventDefault()
+createUser.addEventListener("click", (event) => {
+    // submitUser(NewUser.value)
+    debugger
+    event.preventDefault()
 })
 
