@@ -7,7 +7,6 @@
 #   Character.create(name: 'Luke', movie: movies.first)
     james = User.create(name: "James")
     ames = User.create(name: "Ames")
-    jack = User.create(name: "Jack")
     button1 = Button.create(name: "A1", sound: "sounds1")
     button2 = Button.create(name: "A2", sound: "sounds2")
     button3 = Button.create(name: "B1", sound: "sounds3")
