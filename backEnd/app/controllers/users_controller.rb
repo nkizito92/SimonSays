@@ -6,7 +6,9 @@ class UsersController < ApplicationController
     end 
 
     def create 
-        user = User.create(name: params[:name])
+        user = User.new(name: params[:name])
+        user.games.build({highscore: params[:highscore], score: params[:highscore]})
+        user.save
         render json: user
     end
 end
