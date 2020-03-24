@@ -7,17 +7,19 @@ class User {
         this.highscores = this.games.sort((a, b) => b.highscore - a.highscore)
         this.players = document.querySelector("#players")
         this.point = document.querySelector("#points")
-        debugger
         this.h1 = document.createElement("h1")
         User.all.push(this)
     }
 
-
     fullyUserRender() {
-        this.games.forEach(gm => this.h1.innerHTML = `${this.name}'s HighScore: ${this.highscores[0].highscore}`)
+        this.games.forEach(() => {
+            if (this.highscores[0].highscore !== null)
+                (this.h1.innerHTML = `${this.name}'s HighScore: ${this.highscores[0].highscore}</br> </br>`)
+            else
+                (this.h1.innerHTML = `${this.name}'s HighScore: No game has been played </br> </br>`)
+        })
         this.players.appendChild(this.h1)
         return this.players
     }
-
 
 }

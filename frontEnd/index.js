@@ -15,28 +15,21 @@ function startsTheGame() {
             if (keyButtons.childElementCount === 0) {
                 btn.fetchButtons()
             }
-            createnewUser.fetchUser()
-            // let bestPlayer = gamehightScore(game)[0];
-            // gm.innerHTML = `${bestPlayer.user.name}'s HightScore: ${bestPlayer.highscore}`
             points.innerHTML = `Score: ${point}`
             point++
             startGame.style.innerHTML = "Restart Game"
             startGame.removeEventListener('click', startsTheGame)
             buttonSet()
-            // userClicksBtn(keyButtons)
             setTimeout(() => cpuPressbuttons(keyButtons), 3000)
-
         })
-    // cpu clicks buttons and they each blink once
-    // you click the same buttons and pass the first level
-    // cpu click buttons and adds one more click to follow each level
 }
 
 function cpuPressbuttons(btn) {
     // array set to choose for cpu to press
+    btn.removeEventListener("click", clicked)
     let started = -1
     let arrSet = []
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; (i < point); i++) {
         let indexSet = Math.floor(6 * Math.random(1))
         arrSet.push(indexSet)
     }
@@ -44,36 +37,45 @@ function cpuPressbuttons(btn) {
         if (started++ < arrSet.length - 1) {
             let btton = document.querySelectorAll(".keybutton")
             let selectedBtn = btton[arrSet[started]]
-            colorToggle(selectedBtn, "red", 500)
+            colorToggle(selectedBtn, "red", (200 - (point * 100)))
         } else
             (clearInterval)
-    }, 600)
+    }, (800 - (point * 100)))
+    let copiedArr = [...arrSet]
     //user clicks button
-    btn.addEventListener("click", (e) => clicked(e, arrSet))
+    btn.addEventListener("click", (e) => clicked(e, copiedArr))
 }
 
 function colorToggle(obj, color, time) {
     obj.style.backgroundColor = color
+    if (time <= 200)
+        (time = 200)
+
     if (obj.style.backgroundColor === color)
         (setTimeout(() => obj.style.backgroundColor = "", time))
 }
 
 let newArr = []
 let index = 0;
+let copyArr2 = []
 function clicked(e, arr) {
     e.target = document.querySelector(".keybutton")
     colorToggle(e.target, "green", 300)
     const key = parseInt(e.target.id.split("key-")[1]) - 1
     newArr.push(key)
     let copyArr1 = newArr
-    const copyArr2 = arr
-    if (key === arr[index]) {
+    copyArr2 = [...arr]
+    checkUsersClick(key, copyArr1, copyArr2)
+}
+
+function checkUsersClick(key, copyArr1, copyArr2) {
+    if (key === copyArr2[index]) {
         index++
         if (copyArr1.length === copyArr2.length) {
             if (copyArr1.join(" ") === copyArr2.join(" ")) {
                 index = 0
                 newArr = []
-                keyButtons.removeEventListener("click", clicked)
+                copyArr2 = []
                 startsTheGame()
             }
         }
@@ -88,7 +90,6 @@ function clicked(e, arr) {
         main.appendChild(endTheGame)
         Button.removeButtons()
         createTheUser()
-        // setTimeout(() => window.location.reload(), 12000)
     }
 }
 const restartGame = document.createElement("button")
@@ -113,11 +114,6 @@ function endOrRestartGameBtnConfig(endGame) {
     // End Game Event
     endGame.addEventListener("click", () => {
         window.location.reload()
-        // Button.removeButtons()
-        // main.removeChild(endGame)
-        // main.replaceChild(startGame, restartGame)
-        // startGame.addEventListener("click", startsTheGame)
-        // gm.innerHTML = ""
     })
     //Restarts game
     restartsTheGame()
@@ -131,30 +127,7 @@ function hightScore(highscores) {
 function gamehightScore(theBestPlayer) {
     return theBestPlayer.sort((a, b) => b.highscore - a.highscore)
 }
-// function displayScores() {
-//     fetch("http://localhost:3000/users")
-//         .then(res => res.json())
-//         .then(user => {
-//             user.forEach(player => {
-//                 let theHighestScore = hightScore(player)
-//                 let h1 = document.createElement("h1")
-//                 for (let i = 0; i < theHighestScore.length; i++) {
-//                     if (theHighestScore[i].highscore === null)
-//                         (h1.innerHTML = "No games played!")
-//                     else
-//                         (h1.innerHTML = `${player.name}'s HighScore: ${theHighestScore[0].highscore}`)
-//                 }
-//                 let div = document.querySelector('#players')
-//                 let theUser = document.createElement("div");
-//                 theUser.className = "user"
-//                 theUser.innerHTML = `${player.name}`
-//                 div.append(theUser)
-//                 theUser.append(h1)
-//             })
-//         })
-// }
 
-// displayScores()
 function userForm() {
     let form = document.createElement("form")
     let userInput = document.createElement("input")
@@ -178,6 +151,7 @@ function userForm() {
     main.appendChild(form)
 }
 let createnewUser = new UsersAdapter("http://localhost:3000/users")
+createnewUser.fetchUser()
 function submitUser(name) {
     fetch("http://localhost:3000/users", {
         method: "post",
