@@ -24,10 +24,9 @@ function startsTheGame() {
         })
 }
 
-let arrSet = []
 function cpuPressbuttons(btn) {
+    var arrSet = []
     // array set to choose for cpu to press
-    btn.removeEventListener("click", clicked)
     let started = -1
     for (let i = 0; (i < point); i++) {
         let indexSet = Math.floor(6 * Math.random(1))
@@ -42,7 +41,7 @@ function cpuPressbuttons(btn) {
             (clearInterval)
     }, 500)
     //user clicks button
-    btn.addEventListener("click", (e) => clicked(e, arrSet))
+    keyButtons.addEventListener("click", (e) => clicked(e, arrSet))
 }
 
 function colorToggle(obj, color, time) {
@@ -55,13 +54,15 @@ function colorToggle(obj, color, time) {
 }
 
 let index = 0;
+let newArr = []
 function clicked(e, arr) {
-    let newArr = []
-    e.target = document.querySelector(".keybutton")
+    // e.target = document.querySelector(".keybutton")
+    // e.target.querySelector(".keybutton")
     colorToggle(e.target, "green", 300)
     const key = parseInt(e.target.id.split("key-")[1]) - 1
     newArr.push(key)
     let copyArr1 = newArr
+    debugger
     let copyArr2 = arr
     checkUsersClick(key, copyArr1, copyArr2)
 }
@@ -78,6 +79,8 @@ function checkUsersClick(key, copyArr1, copyArr2) {
         }
     } else {
         index = 0
+        console.log(copyArr2)
+        debugger
         newArr = []
         alert("You Failed Try again")
         userForm()
@@ -162,7 +165,7 @@ function submitUser(name, scored) {
         .then(user => {
             let scoreDisplay = document.querySelector("#players")
             let h1 = document.createElement("h1")
-            h1.innerHTML = `${user.name}'s HighScore: ${user.scored - 1}`
+            h1.innerHTML = `${user.name}'s HighScore: ${user.scored}`
             scoreDisplay.appendChild(h1)
         })
 }
@@ -173,7 +176,7 @@ function createTheUser() {
 
     createUser.addEventListener("click", (event) => {
         event.preventDefault()
-        submitUser(NewUser.value, point)
+        submitUser(NewUser.value, (point - 1))
         setTimeout(() => window.location.reload(), 5000)
     })
 }
