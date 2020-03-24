@@ -1,12 +1,12 @@
 class User {
     static all = []
-    constructor({ id, name, games }) {
+    constructor({ id, name, scored, games }) {
         this.id = id
         this.name = name
         this.games = games
+        this.scored = scored
         this.highscores = this.games.sort((a, b) => b.highscore - a.highscore)
         this.players = document.querySelector("#players")
-        this.point = document.querySelector("#points")
         this.h1 = document.createElement("h1")
         User.all.push(this)
     }

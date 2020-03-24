@@ -22,11 +22,20 @@ div {
     border: wheat 1px solid;
 }
 
+#points {
+    position: absolute;
+    text-align: center;
+    top: 0;
+    font-size: 30px;
+    right: 0;
+    left: 0;
+}
+
 #keysbuttons{
     position: relative;
-    top: 180px;
+    top: 220px;
     text-align: center;
-    margin:  0 auto;
+    margin: 0 auto;
 }
 
 .keybutton {
@@ -48,6 +57,8 @@ div {
 }
 
 button {
+    position: absolute;
+    z-index: 50;
     border: 1px #00ffff solid;
     border-radius: 5px;
     background-color: #00000000;
@@ -78,7 +89,7 @@ main {
     border: 1px red solid;
     color: red;
     top: 0;
-    right: 350px;
+    right: 24.5%;
 }
 #gm {
     position: relative;
@@ -88,5 +99,43 @@ main {
     color: #ffff;
 }
 form {
+    position: relative;
     margin: 0 auto;
+    text-align: center;
+    top: 100px;
+}
+
+form #name {
+    background: none;
+    text-align: center;
+    color: white;
+    font-size: xx-large;
+    outline: none;
+    border: none;
+}
+
+form #createUser{
+    position: relative;
+    display: inherit;
+    margin-top: 40px;
+    color: green;
+    border: 2px solid green;
+    background: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: large;
+    outline: none;
+}
+
+form #createUser:hover {
+    cursor: pointer;
+    background-color: green;
+    color: white;
+}
+
+form #createUser:active {
+    background-color: cyan;
+    border: 2px solid cyan;
+    color: white;
+    outline: none;
 }

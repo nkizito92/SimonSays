@@ -9,26 +9,26 @@ const keyButtons = document.querySelector("#keysbuttons")
 let gm = document.querySelector("#gm")
 
 function startsTheGame() {
+
     fetch("http://localhost:3000/games")
         .then(res => res.json())
-        .then(game => {
+        .then(() => {
             if (keyButtons.childElementCount === 0) {
                 btn.fetchButtons()
             }
             points.innerHTML = `Score: ${point}`
             point++
-            startGame.style.innerHTML = "Restart Game"
             startGame.removeEventListener('click', startsTheGame)
             buttonSet()
             setTimeout(() => cpuPressbuttons(keyButtons), 3000)
         })
 }
 
+let arrSet = []
 function cpuPressbuttons(btn) {
     // array set to choose for cpu to press
     btn.removeEventListener("click", clicked)
     let started = -1
-    let arrSet = []
     for (let i = 0; (i < point); i++) {
         let indexSet = Math.floor(6 * Math.random(1))
         arrSet.push(indexSet)
@@ -40,10 +40,9 @@ function cpuPressbuttons(btn) {
             colorToggle(selectedBtn, "red", (200 - (point * 100)))
         } else
             (clearInterval)
-    }, (800 - (point * 100)))
-    let copiedArr = [...arrSet]
+    }, 500)
     //user clicks button
-    btn.addEventListener("click", (e) => clicked(e, copiedArr))
+    btn.addEventListener("click", (e) => clicked(e, arrSet))
 }
 
 function colorToggle(obj, color, time) {
@@ -55,16 +54,15 @@ function colorToggle(obj, color, time) {
         (setTimeout(() => obj.style.backgroundColor = "", time))
 }
 
-let newArr = []
 let index = 0;
-let copyArr2 = []
 function clicked(e, arr) {
+    let newArr = []
     e.target = document.querySelector(".keybutton")
     colorToggle(e.target, "green", 300)
     const key = parseInt(e.target.id.split("key-")[1]) - 1
     newArr.push(key)
     let copyArr1 = newArr
-    copyArr2 = [...arr]
+    let copyArr2 = arr
     checkUsersClick(key, copyArr1, copyArr2)
 }
 
@@ -75,7 +73,6 @@ function checkUsersClick(key, copyArr1, copyArr2) {
             if (copyArr1.join(" ") === copyArr2.join(" ")) {
                 index = 0
                 newArr = []
-                copyArr2 = []
                 startsTheGame()
             }
         }
@@ -84,18 +81,15 @@ function checkUsersClick(key, copyArr1, copyArr2) {
         newArr = []
         alert("You Failed Try again")
         userForm()
-        let endTheGame = document.createElement("button")
-        endTheGame.innerHTML = "End The Game"
-        endTheGame.addEventListener("click", () => window.location.reload())
-        main.appendChild(endTheGame)
         Button.removeButtons()
         createTheUser()
     }
 }
 const restartGame = document.createElement("button")
+let changeBtn = ""
 function buttonSet() {
     restartGame.innerHTML = "Restart Game"
-    // main.replaceChild(restartGame, startGame)
+
     // End Game Button
     const endGame = document.createElement("button")
     endGame.innerHTML = "End Game"
@@ -137,10 +131,10 @@ function userForm() {
     userInput.placeholder = "Your Name"
 
     let yourScore = document.createElement("input")
-    yourScore.name = "highscore"
+    yourScore.name = "scored"
     yourScore.type = "number"
+    yourScore.hidden = true
     yourScore.value = point - 1
-    yourScore.hidden
 
     let submitBtn = document.createElement("input")
     submitBtn.name = "submit"
@@ -152,7 +146,7 @@ function userForm() {
 }
 let createnewUser = new UsersAdapter("http://localhost:3000/users")
 createnewUser.fetchUser()
-function submitUser(name) {
+function submitUser(name, scored) {
     fetch("http://localhost:3000/users", {
         method: "post",
         headers: {
@@ -160,12 +154,16 @@ function submitUser(name) {
             "Accept": "application/json"
         },
         body: JSON.stringify({
-            name
+            name,
+            scored
         })
     })
         .then(res => res.json())
         .then(user => {
-            debugger
+            let scoreDisplay = document.querySelector("#players")
+            let h1 = document.createElement("h1")
+            h1.innerHTML = `${user.name}'s HighScore: ${user.scored - 1}`
+            scoreDisplay.appendChild(h1)
         })
 }
 // Create user
@@ -176,5 +174,6 @@ function createTheUser() {
     createUser.addEventListener("click", (event) => {
         event.preventDefault()
         submitUser(NewUser.value, point)
+        setTimeout(() => window.location.reload(), 5000)
     })
 }
