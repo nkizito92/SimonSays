@@ -10,15 +10,16 @@ body {
 div {
     padding: 20px 0;
     width: auto;
-    color: red;
+    color: white;
 }
 #players {
-    width: 300px;
+    width: 290px;
     position: absolute;
     font-size: small;
     right:0;
     top: 0;
-    border: wheat 1px infinite;
+    padding-left: 10px;
+    border: wheat 1px solid;
 }
 
 #keysbuttons{

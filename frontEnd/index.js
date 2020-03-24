@@ -15,8 +15,9 @@ function startsTheGame() {
             if (keyButtons.childElementCount === 0) {
                 btn.fetchButtons()
             }
-            let bestPlayer = gamehightScore(game)[0];
-            gm.innerHTML = `${bestPlayer.user.name}'s HightScore: ${bestPlayer.highscore}`
+            createnewUser.fetchUser()
+            // let bestPlayer = gamehightScore(game)[0];
+            // gm.innerHTML = `${bestPlayer.user.name}'s HightScore: ${bestPlayer.highscore}`
             points.innerHTML = `Score: ${point}`
             point++
             startGame.style.innerHTML = "Restart Game"
@@ -66,13 +67,13 @@ function clicked(e, arr) {
     newArr.push(key)
     let copyArr1 = newArr
     const copyArr2 = arr
-    debugger
     if (key === arr[index]) {
         index++
         if (copyArr1.length === copyArr2.length) {
             if (copyArr1.join(" ") === copyArr2.join(" ")) {
                 index = 0
                 newArr = []
+                keyButtons.removeEventListener("click", clicked)
                 startsTheGame()
             }
         }
@@ -86,6 +87,7 @@ function clicked(e, arr) {
         endTheGame.addEventListener("click", () => window.location.reload())
         main.appendChild(endTheGame)
         Button.removeButtons()
+        createTheUser()
         // setTimeout(() => window.location.reload(), 12000)
     }
 }
@@ -129,31 +131,32 @@ function hightScore(highscores) {
 function gamehightScore(theBestPlayer) {
     return theBestPlayer.sort((a, b) => b.highscore - a.highscore)
 }
+// function displayScores() {
+//     fetch("http://localhost:3000/users")
+//         .then(res => res.json())
+//         .then(user => {
+//             user.forEach(player => {
+//                 let theHighestScore = hightScore(player)
+//                 let h1 = document.createElement("h1")
+//                 for (let i = 0; i < theHighestScore.length; i++) {
+//                     if (theHighestScore[i].highscore === null)
+//                         (h1.innerHTML = "No games played!")
+//                     else
+//                         (h1.innerHTML = `${player.name}'s HighScore: ${theHighestScore[0].highscore}`)
+//                 }
+//                 let div = document.querySelector('#players')
+//                 let theUser = document.createElement("div");
+//                 theUser.className = "user"
+//                 theUser.innerHTML = `${player.name}`
+//                 div.append(theUser)
+//                 theUser.append(h1)
+//             })
+//         })
+// }
 
-fetch("http://localhost:3000/users")
-    .then(res => res.json())
-    .then(user => {
-        user.forEach(player => {
-            let theHighestScore = hightScore(player)
-            let h1 = document.createElement("h1")
-            for (let i = 0; i < theHighestScore.length; i++) {
-                if (theHighestScore[i].highscore === null)
-                    (h1.innerHTML = "No games played!")
-                else
-                    (h1.innerHTML = `${player.name}'s HighScore: ${theHighestScore[0].highscore}`)
-            }
-            let div = document.querySelector('#players')
-            let user = document.createElement("div");
-            user.className = "user"
-            user.innerHTML = `${player.name}`
-            div.append(user)
-            user.append(h1)
-        })
-    })
+// displayScores()
 function userForm() {
     let form = document.createElement("form")
-    form.action = "http://localhost:3000/users"
-    form.method = "post"
     let userInput = document.createElement("input")
     userInput.name = "name"
     userInput.id = "name"
@@ -174,7 +177,7 @@ function userForm() {
     form.append(userInput, submitBtn, yourScore)
     main.appendChild(form)
 }
-
+let createnewUser = new UsersAdapter("http://localhost:3000/users")
 function submitUser(name) {
     fetch("http://localhost:3000/users", {
         method: "post",
@@ -187,14 +190,17 @@ function submitUser(name) {
         })
     })
         .then(res => res.json())
-        .then(user => console.log(user))
+        .then(user => {
+            debugger
+        })
 }
-// Create user 
-const createUser = document.querySelector("#createUser")
-let NewUser = document.querySelector("#name")
-createUser.addEventListener("click", (event) => {
-    // submitUser(NewUser.value)
-    debugger
-    event.preventDefault()
-})
+// Create user
+function createTheUser() {
+    const createUser = document.querySelector("#createUser")
+    let NewUser = document.querySelector("#name")
 
+    createUser.addEventListener("click", (event) => {
+        event.preventDefault()
+        submitUser(NewUser.value, point)
+    })
+}
