@@ -6,9 +6,15 @@ class UsersController < ApplicationController
     end 
 
     def create 
-        user = User.new(name: params[:name])
-        user.games.build({highscore: params[:highscore], score: params[:highscore]})
+        user = User.find_or_create_by(user_params)
+        user.games.build({highscore: user_params[:scored], score: user_params[:scored]})
         user.save
         render json: user
     end
+
+    private 
+
+    def user_params 
+        params.require(:user).permit(:name, :scored)
+    end 
 end

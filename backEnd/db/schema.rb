@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 2020_03_20_173155) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "scored"
   end
 
 end
