@@ -1,160 +1,152 @@
-let btn = new ButtonsAdapter("http://localhost:3000/buttons")
-
+let btn = new ButtonsAdapter("http://localhost:3000/buttons");
 const body = document.querySelector("body");
-const main = document.querySelector("main")
-const startGame = document.querySelector("#startbtn")
-let points = document.querySelector("#points")
+const main = document.querySelector("main");
+const startGame = document.querySelector("#startbtn");
+let points = document.querySelector("#points");
 let point = 0;
-const keyButtons = document.querySelector("#keysbuttons")
-let gm = document.querySelector("#gm")
+const keyButtons = document.querySelector("#keysbuttons");
+let gm = document.querySelector("#gm");
 
+// player and buttons set.
+let plyrSelectedBtns = [];
+let compArrSet = [];
+let checkIndex = 0;
 function startsTheGame() {
-
+    startGame.hidden = true
     fetch("http://localhost:3000/games")
         .then(res => res.json())
         .then(() => {
             if (keyButtons.childElementCount === 0) {
-                btn.fetchButtons()
+                btn.fetchButtons();
             }
-            points.innerHTML = `Score: ${point}`
-            point++
-            startGame.removeEventListener('click', startsTheGame)
-            buttonSet()
-            setTimeout(() => cpuPressbuttons(keyButtons), 3000)
-        })
+            points.innerHTML = `Score: ${point}`;
+            point++;
+            plyrSelectedBtns = [];
+            checkIndex = 0;
+            startGame.removeEventListener("click", startsTheGame);
+            buttonSet();
+            setTimeout(() => cpuPressbuttons(), 3000);
+        });
 }
-
-function cpuPressbuttons(btn) {
-    var arrSet = []
-    // array set to choose for cpu to press
-    let started = -1
-    for (let i = 0; (i < point); i++) {
-        let indexSet = Math.floor(6 * Math.random(1))
-        arrSet.push(indexSet)
+function cpuPressbuttons() {
+    var arrSet = new Array();
+    let started = -1;
+    for (let i = 0; i < point; i++) {
+        let indexSet = Math.floor(6 * Math.random(1));
+        arrSet.push(indexSet);
     }
+    compArrSet = arrSet;
     setInterval(() => {
         if (started++ < arrSet.length - 1) {
-            let btton = document.querySelectorAll(".keybutton")
-            let selectedBtn = btton[arrSet[started]]
-            colorToggle(selectedBtn, "red", (200 - (point * 100)))
-        } else
-            (clearInterval)
-    }, 500)
-    //user clicks button
-    keyButtons.addEventListener("click", (e) => clicked(e, arrSet))
+            let btton = document.querySelectorAll(".keybutton");
+            let selectedBtn = btton[arrSet[started]];
+            btton[arrSet[started]].querySelector("audio").load()
+            btton[arrSet[started]].querySelector("audio").play()
+            colorToggle(selectedBtn, "red", (900 - (point * 100)));
+        } else clearInterval;
+    }, 500);
 }
-
-function colorToggle(obj, color, time) {
-    obj.style.backgroundColor = color
-    if (time <= 200)
-        (time = 200)
-
-    if (obj.style.backgroundColor === color)
-        (setTimeout(() => obj.style.backgroundColor = "", time))
+function clicked(e, cpuArr) {
+    const plyNum = parseInt(e.target.id.split("key-")[1]) - 1;
+    colorToggle(e.target, "green", 300);
+    checkUsersClick(plyNum, cpuArr);
 }
-
-let index = 0;
-let newArr = []
-function clicked(e, arr) {
-    // e.target = document.querySelector(".keybutton")
-    // e.target.querySelector(".keybutton")
-    colorToggle(e.target, "green", 300)
-    const key = parseInt(e.target.id.split("key-")[1]) - 1
-    newArr.push(key)
-    let copyArr1 = newArr
-    debugger
-    let copyArr2 = arr
-    checkUsersClick(key, copyArr1, copyArr2)
-}
-
-function checkUsersClick(key, copyArr1, copyArr2) {
-    if (key === copyArr2[index]) {
-        index++
-        if (copyArr1.length === copyArr2.length) {
-            if (copyArr1.join(" ") === copyArr2.join(" ")) {
-                index = 0
-                newArr = []
-                startsTheGame()
-            }
+function checkUsersClick(plyNum, cpuArr) {
+    if (cpuArr[checkIndex] === plyNum) {
+        plyrSelectedBtns.push(plyNum);
+        checkIndex++;
+        if (plyrSelectedBtns.length === cpuArr.length) {
+            startsTheGame();
         }
     } else {
-        index = 0
-        console.log(copyArr2)
-        debugger
-        newArr = []
-        alert("You Failed Try again")
-        userForm()
-        Button.removeButtons()
-        createTheUser()
+        index = 0;
+        plyrSelectedBtns = [];
+        failedGame()
     }
 }
-const restartGame = document.createElement("button")
-let changeBtn = ""
+
+function failedGame() {
+    let failed = document.querySelector("#failed")
+    failed.innerHTML = "Wrong Button <br/> GameOver!!"
+    Button.removeButtons();
+    document.querySelector("#failSound").play()
+    points.hidden = true
+    setTimeout(() => {
+        failed.hidden = true
+        userForm();
+        createTheUser();
+    }, 3000)
+}
+
+
+keyButtons.addEventListener("click", e => {
+    e.target.querySelector("audio").load()
+    e.target.querySelector("audio").play()
+    clicked(e, compArrSet)
+});
+function colorToggle(obj, color, time) {
+    obj.style.backgroundColor = color;
+    if (time <= 200)
+        (time = 200)
+    if (obj.style.backgroundColor === color)
+        setTimeout(() => (obj.style.backgroundColor = ""), time);
+}
+const restartGame = document.createElement("button");
+let changeBtn = "";
 function buttonSet() {
-    restartGame.innerHTML = "Restart Game"
-
     // End Game Button
-    const endGame = document.createElement("button")
-    endGame.innerHTML = "End Game"
-    endGame.id = "endGame"
-    main.appendChild(endGame)
-    endOrRestartGameBtnConfig(endGame)
+    const endGame = document.createElement("button");
+    endGame.innerHTML = "End Game";
+    endGame.id = "endGame";
+    main.appendChild(endGame);
+    endOrRestartGameBtnConfig(endGame);
 }
 
-function restartsTheGame() {
-    restartGame.addEventListener('click', () => {
-        Button.removeButtons()
-        setTimeout(() => Button.renderAll(), 400)
-    })
-}
 function endOrRestartGameBtnConfig(endGame) {
     // End Game Event
     endGame.addEventListener("click", () => {
-        window.location.reload()
-    })
-    //Restarts game
-    restartsTheGame()
+        window.location.reload();
+    });
 }
-
-startGame.addEventListener("click", startsTheGame)
-
+startGame.addEventListener("click", () => {
+    document.querySelector("#startGame").play()
+    startsTheGame()
+});
 function hightScore(highscores) {
-    return highscores.games.sort((a, b) => b.highscore - a.highscore)
+    return highscores.games.sort((a, b) => b.highscore - a.highscore);
 }
 function gamehightScore(theBestPlayer) {
-    return theBestPlayer.sort((a, b) => b.highscore - a.highscore)
+    return theBestPlayer.sort((a, b) => b.highscore - a.highscore);
 }
-
 function userForm() {
-    let form = document.createElement("form")
-    let userInput = document.createElement("input")
-    userInput.name = "name"
-    userInput.id = "name"
-    userInput.type = "text"
-    userInput.placeholder = "Your Name"
-
-    let yourScore = document.createElement("input")
-    yourScore.name = "scored"
-    yourScore.type = "number"
-    yourScore.hidden = true
-    yourScore.value = point - 1
-
-    let submitBtn = document.createElement("input")
-    submitBtn.name = "submit"
-    submitBtn.id = "createUser"
-    submitBtn.type = "submit"
-    submitBtn.value = "Post Score"
-    form.append(userInput, submitBtn, yourScore)
-    main.appendChild(form)
+    points.hidden = false
+    let form = document.createElement("form");
+    let userInput = document.createElement("input");
+    userInput.name = "name";
+    userInput.id = "name";
+    userInput.type = "text";
+    userInput.placeholder = "Your Name";
+    let yourScore = document.createElement("input");
+    yourScore.name = "scored";
+    yourScore.type = "number";
+    yourScore.hidden = true;
+    yourScore.value = point - 1;
+    let submitBtn = document.createElement("input");
+    submitBtn.name = "submit";
+    submitBtn.id = "createUser";
+    submitBtn.type = "submit";
+    submitBtn.value = "Post Score";
+    form.append(userInput, submitBtn, yourScore);
+    main.appendChild(form);
 }
-let createnewUser = new UsersAdapter("http://localhost:3000/users")
-createnewUser.fetchUser()
+let createnewUser = new UsersAdapter("http://localhost:3000/users");
+createnewUser.fetchUser();
 function submitUser(name, scored) {
     fetch("http://localhost:3000/users", {
         method: "post",
         headers: {
             "Content-Type": "application/json",
-            "Accept": "application/json"
+            Accept: "application/json"
         },
         body: JSON.stringify({
             name,
@@ -163,20 +155,21 @@ function submitUser(name, scored) {
     })
         .then(res => res.json())
         .then(user => {
-            let scoreDisplay = document.querySelector("#players")
-            let h1 = document.createElement("h1")
-            h1.innerHTML = `${user.name}'s HighScore: ${user.scored}`
-            scoreDisplay.appendChild(h1)
-        })
+            let scoreDisplay = document.querySelector("#players");
+            let h1 = document.createElement("h1");
+            h1.innerHTML = `${user.name}'s HighScore: ${user.scored}`;
+            scoreDisplay.appendChild(h1);
+        });
 }
 // Create user
 function createTheUser() {
-    const createUser = document.querySelector("#createUser")
-    let NewUser = document.querySelector("#name")
-
-    createUser.addEventListener("click", (event) => {
-        event.preventDefault()
-        submitUser(NewUser.value, (point - 1))
-        setTimeout(() => window.location.reload(), 5000)
-    })
+    const createUser = document.querySelector("#createUser");
+    let NewUser = document.querySelector("#name");
+    createUser.addEventListener("click", event => {
+        event.preventDefault();
+        document.querySelector("form").hidden = true
+        document.querySelector("#audioPost").play()
+        submitUser(NewUser.value, point - 1);
+        setTimeout(() => window.location.reload(), 5000);
+    });
 }

@@ -6,7 +6,7 @@ class Button {
         this.sound = sound
         this.keybtn = document.createElement("button")
         this.keybtn.className = "keybutton"
-        this.keybtn.innerHTML = this.name
+        this.keybtn.innerHTML = `${this.name} <audio> <source src="${this.sound}" type="audio/mp3"> </audio>`
         this.keybtn.id = `key-${this.id}`
         this.keyPair = document.querySelector("#keysbuttons")
         Button.all.push(this)
