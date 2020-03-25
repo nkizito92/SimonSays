@@ -5,7 +5,7 @@ In this game here you will have to do what Simone does, you got 3 lives and each
 ## Usage
 
 To get started on your `terminal` run `rails s`.
-If those commands do not work you may need to run `rake db:migrate` to build the database first. Then you may be able to run the `localhost` with the command `rails s`. 
+If those commands do not work you may need to run `rails db:migrate` and `rails db:seed` to build the database first. Then you may be able to run the `localhost` with the command `rails s`. 
 
 ```ruby
 
