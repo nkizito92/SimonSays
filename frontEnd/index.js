@@ -7,11 +7,21 @@ let point = 0;
 const keyButtons = document.querySelector("#keysbuttons");
 let gm = document.querySelector("#gm");
 
+// Welcoming 
+let welcome = document.querySelector("#welcome")
+welcome.addEventListener("click", welcoming)
+function welcoming() {
+    startGame.hidden = true
+    welcome.innerHTML = "Press what Simon clicks <br/> Simone's <span style=color:red;>Red</span> and you're <span style=color:green;>green</span>!! <br/><br/> Remembering The Sound is Key!!"
+    setTimeout(() => { welcome.innerHTML = "Press Start to Play the game!! <br/> <br/> Click here for <br/> instructions again!!"; startGame.hidden = false }, 7000)
+}
+
 // player and buttons set.
 let plyrSelectedBtns = [];
 let compArrSet = [];
 let checkIndex = 0;
 function startsTheGame() {
+    welcome.hidden = true
     startGame.hidden = true
     fetch("http://localhost:3000/games")
         .then(res => res.json())

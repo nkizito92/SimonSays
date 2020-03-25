@@ -33,9 +33,11 @@ div {
 
 #keysbuttons{
     position: relative;
-    top: 180px;
+    top: 200px;
+    width: 501.1px;
     text-align: center;
     margin: 0 auto;
+    padding: 0;
 }
 
 .keybutton {
@@ -54,6 +56,28 @@ div {
 }
 .keybutton:hover {
     cursor: pointer;
+}
+#welcome {
+    position: absolute;
+    font-size: x-large;
+    top: 0;
+    width: 350px;
+    right: 36%;
+    text-align: center;
+}
+
+#welcome:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+#welcome:active {
+    color: cyan;
+}
+#startbtn {
+    position: relative;
+    top: 200px;
+    left: 36%;
+    font-size: xx-large;
 }
 
 button {
