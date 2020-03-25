@@ -22,10 +22,4 @@ class Button {
             btn.keyPair.removeChild(btn.keybtn)
         })
     }
-
-    static renderAll() {
-        Button.all.forEach(button => {
-            button.fullyRender()
-        })
-    }
 }
