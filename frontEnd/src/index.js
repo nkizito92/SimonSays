@@ -133,8 +133,8 @@ function userForm() {
   yourScore.hidden = true;
   yourScore.value = point - 1;
 }
-let createnewUser = new UsersAdapter("http://localhost:3000/users");
-createnewUser.fetchUser();
+let allUsers = new UsersAdapter("http://localhost:3000/users");
+
 function submitUser(name, scored) {
   fetch("http://localhost:3000/users", {
     method: "post",
@@ -159,6 +159,7 @@ function submitUser(name, scored) {
 function createTheUser() {
   const createUser = document.querySelector("#createUser");
   let NewUser = document.querySelector("#name");
+  allUsers.fetchUser();
   createUser.addEventListener("click", event => {
     event.preventDefault();
     if (NewUser.value === "") {
