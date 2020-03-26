@@ -161,12 +161,20 @@ function createTheUser() {
   let NewUser = document.querySelector("#name");
   createUser.addEventListener("click", event => {
     event.preventDefault();
-    form.hidden = true;
-    points.innerHTML = "Score Posted!!";
-    points.style.fontSize = "32pt";
-    points.style.top = "auto";
-    document.querySelector("#audioPost").play();
-    submitUser(NewUser.value, point - 1);
-    setTimeout(() => window.location.reload(), 5000);
+    if (NewUser.value === "") {
+      NewUser.focus();
+      document.querySelector("#failSound").load();
+      document.querySelector("#failSound").play();
+      NewUser.style.border = "2px red solid";
+      NewUser.placeholder = "Name is Required";
+    } else {
+      form.hidden = true;
+      points.innerHTML = "Score Posted!!";
+      points.style.fontSize = "32pt";
+      points.style.top = "auto";
+      document.querySelector("#audioPost").play();
+      submitUser(NewUser.value, point - 1);
+      setTimeout(() => window.location.reload(), 5000);
+    }
   });
 }
