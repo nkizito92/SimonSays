@@ -1,16 +1,26 @@
 class UsersAdapter {
-    constructor(baseURL) {
-        this.baseURL = baseURL
-    }
+  constructor(baseURL) {
+    this.baseURL = baseURL;
+  }
 
-    fetchUser() {
-        fetch(this.baseURL)
-            .then(res => res.json())
-            .then(user => {
-                for (let ply in user) {
-                    let newUser = new User(user[ply])
-                    newUser.fullyUserRender()
-                }
-            })
-    }
+  fetchScore(name, scored) {
+    let configObj = {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({
+        name,
+        scored
+      })
+    };
+
+    fetch(this.baseURL, configObj)
+      .then(res => res.json())
+      .then(newUser => {
+        let user = new User(newUser);
+        user.postScore();
+      });
+  }
 }

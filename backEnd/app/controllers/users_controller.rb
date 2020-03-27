@@ -6,8 +6,8 @@ class UsersController < ApplicationController
     end 
 
     def create 
-        user = User.find_or_create_by(user_params)
-        user.games.build({highscore: user_params[:scored], score: user_params[:scored]})
+        user = User.find_or_create_by(name: user_params[:name])
+        user.games.build({score: params[:scored] })
         user.save
         render json: user
     end

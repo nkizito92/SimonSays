@@ -51,8 +51,8 @@ function cpuPressbuttons() {
     if (started++ < arrSet.length - 1) {
       let btton = document.querySelectorAll(".keybutton");
       let selectedBtn = btton[arrSet[started]];
-      btton[arrSet[started]].querySelector("audio").load();
-      btton[arrSet[started]].querySelector("audio").play();
+      selectedBtn.querySelector("audio").load();
+      selectedBtn.querySelector("audio").play();
       colorToggle(selectedBtn, "red", 900 - point * 100);
     } else clearInterval;
   }, 500);
@@ -133,33 +133,16 @@ function userForm() {
   yourScore.hidden = true;
   yourScore.value = point - 1;
 }
-let allUsers = new UsersAdapter("http://localhost:3000/users");
-
+let theUsers = new UsersAdapter("http://localhost:3000/users");
 function submitUser(name, scored) {
-  fetch("http://localhost:3000/users", {
-    method: "post",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json"
-    },
-    body: JSON.stringify({
-      name,
-      scored
-    })
-  })
-    .then(res => res.json())
-    .then(user => {
-      let scoreDisplay = document.querySelector("#players");
-      let h1 = document.createElement("h1");
-      h1.innerHTML = `${user.name}'s HighScore: ${user.scored}`;
-      scoreDisplay.appendChild(h1);
-    });
+  theUsers.fetchScore(name, scored);
 }
 // Create user
+let displayThe = new GamesAdapter("http://localhost:3000/games");
 function createTheUser() {
   const createUser = document.querySelector("#createUser");
   let NewUser = document.querySelector("#name");
-  allUsers.fetchUser();
+  displayThe.fetchGames();
   createUser.addEventListener("click", event => {
     event.preventDefault();
     if (NewUser.value === "") {
