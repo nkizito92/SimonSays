@@ -104,6 +104,7 @@ function colorToggle(obj, color, time) {
 }
 
 function buttonSet() {
+  
   // End Game Button
   const endGame = document.createElement("button");
   endGame.innerHTML = "End Game";
