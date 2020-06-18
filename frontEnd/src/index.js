@@ -1,17 +1,20 @@
-let btn = new ButtonsAdapter("https://simon-says-back-end.herokuapp.com/buttons");
+const uRLs = "https://simon-says-back-end.herokuapp.com"
+const localURL = "http://localhost:3000"
+let btn = new ButtonsAdapter(`${localURL}/buttons`);
 const main = document.querySelector("main");
 const startGame = document.querySelector("#startbtn");
 let points = document.querySelector("#points");
 let point = 0;
 const keyButtons = document.querySelector("#keysbuttons");
-
+let playerScore = document.querySelector("#players")
+playerScore.hidden = true;
 // Welcoming
 let welcome = document.querySelector("#welcome");
 welcome.addEventListener("click", welcoming);
 function welcoming() {
   startGame.hidden = true;
   welcome.innerHTML =
-    "Press what Simon clicks <br/> Simone's <span style=color:red;>Red</span> and you're <span style=color:green;>green</span>!! <br/><br/> Remembering The Sound is Key!!";
+    "Press what Simon clicks <br/><br/><br/> Simone's <span style=color:red;>Red</span> and you're <span style=color:green;>green</span>!! <br/><br/> Remembering The Sound is Key!!";
   setTimeout(() => {
     welcome.innerHTML =
       "Press Start to Play the game!! <br/> <br/> Click here for <br/> instructions again!!";
@@ -106,10 +109,10 @@ function colorToggle(obj, color, time) {
 function buttonSet() {
 
   // End Game Button
-  const endGame = document.createElement("button");
-  endGame.innerHTML = "End Game";
-  endGame.id = "endGame";
-  main.appendChild(endGame);
+  const endGame = document.querySelector("#endGame");
+  // endGame.innerHTML = "End Game";
+  // endGame.id = "endGame";
+  // main.appendChild(endGame);
   endOrRestartGameBtnConfig(endGame);
 }
 
@@ -127,6 +130,7 @@ startGame.addEventListener("click", () => {
 // Form action
 let form = document.querySelector("form");
 function userForm() {
+  playerScore.hidden = false;
   points.hidden = false;
   form.hidden = false;
   document.getElementById("name").focus();
@@ -134,13 +138,14 @@ function userForm() {
   yourScore.hidden = true;
   yourScore.value = point - 1;
 }
-let theUsers = new UsersAdapter("https://simon-says-back-end.herokuapp.com/users");
+let theUsers = new UsersAdapter(`${localURL}/users`);
 function submitUser(name, scored) {
   theUsers.fetchScore(name, scored);
 }
 // Create user
-let displayThe = new GamesAdapter("https://simon-says-back-end.herokuapp.com/games");
+let displayThe = new GamesAdapter(`${localURL}/games`);
 function createTheUser() {
+
   const createUser = document.querySelector("#createUser");
   let NewUser = document.querySelector("#name");
   displayThe.fetchGames();

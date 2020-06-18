@@ -13,27 +13,27 @@ div {
     color: white;
 }
 #players {
-    width: 290px;
-    position: absolute;
-    font-size: small;
-    right:0;
-    top: 0;
+    width: 206px;
+    position: relative;
+    font-size: 0.9vw;
+    right: 209px;
+    padding: 10px;
+    bottom: 395px;
     padding-left: 10px;
     border: wheat 1px solid;
 }
 
 #points {
-    position: absolute;
+    position: relative;
     text-align: center;
-    top: 0;
+    top: -40px;
     font-size: 30px;
-    right: 0;
-    left: 0;
+   
 }
 
 #keysbuttons{
     position: relative;
-    top: 200px;
+    top: 120px;
     width: 501.1px;
     text-align: center;
     margin: 0 auto;
@@ -58,11 +58,11 @@ div {
     cursor: pointer;
 }
 #welcome {
-    position: absolute;
+    position: relative;
     font-size: x-large;
-    top: 0;
+    top: -140px;
     width: 350px;
-    right: 36%;
+   
     text-align: center;
 }
 
@@ -108,12 +108,17 @@ main {
     height: 400px;
     background-color: #252525;
 }
-#endGame {
+.btnAlign {
     position: absolute;
+    top: 0;
+
+}
+#endGame {
+    position: relative;
     border: 1px red solid;
     color: red;
-    top: 0;
-    right: 24.5%;
+    top: -13px;
+    left: 541px;
 }
 #gm {
     position: relative;
@@ -136,7 +141,7 @@ form {
     position: relative;
     margin: 0 auto;
     text-align: center;
-    top: 100px;
+    /* top: 100px; */
 }
 
 form #name {
