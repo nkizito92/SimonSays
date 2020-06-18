@@ -14,7 +14,7 @@ welcome.addEventListener("click", welcoming);
 function welcoming() {
   startGame.hidden = true;
   welcome.innerHTML =
-    "Press what Simon clicks <br/><br/><br/> Simone's <span style=color:red;>Red</span> and you're <span style=color:green;>green</span>!! <br/><br/> Remembering The Sound is Key!!";
+    "Press what Simon clicks <br/><br/><br/> Simon's <span style=color:red;>Red</span> and you're <span style=color:green;>green</span>!! <br/><br/> Remembering The Sound is Key!!";
   setTimeout(() => {
     welcome.innerHTML =
       "Press Start to Play the game!! <br/> <br/> Click here for <br/> instructions again!!";
