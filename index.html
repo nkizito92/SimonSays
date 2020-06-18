@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SimoneSays</title>
+    <link rel="stylesheet" href="frontEnd/style.css" />
+    <link rel="shortcut icon" href="frontEnd/favicon.ico" type="image/x-icon" />
+</head>
+
+<body>
+    <main>
+        <button id="startbtn">Start Game</button>
+        <div id="gm"></div>
+        <div id="points"></div>
+        <div id="failed"></div>
+        <div id="welcome">
+            Welcome to SimoneSays <br />
+            Click Here for instructions!
+        </div>
+        <div id="keysbuttons"></div>
+
+        <form hidden>
+            <input id="name" type="text" name="name" placeholder="Your Name" />
+            <input type="number" name="scored" hidden />
+            <input id="createUser" name="submit" type="submit" value="Post Score" />
+        </form>
+        <audio id="audioPost">
+            <source src="frontEnd/sounds/strike.mp3" />
+        </audio>
+
+        <audio id="resetGame">
+            <source src="frontEnd/sounds/timer.mp3" />
+        </audio>
+
+        <audio id="startGame">
+            <source src="frontEnd/sounds/zig-zag.mp3" />
+        </audio>
+
+        <audio id="failSound">
+            <source src="frontEnd/sounds/flash-3.mp3" />
+        </audio>
+    </main>
+    <div id="players"></div>
+
+    <script src="frontEnd/src/Button.js"></script>
+    <script src="frontEnd/src/ButtonsAdapter.js"></script>
+    <script src="frontEnd/src/User.js"></script>
+    <script src="frontEnd/src/UsersAdapter.js"></script>
+    <script src="frontEnd/src/Game.js"></script>
+    <script src="frontEnd/src/GamesAdapter.js"></script>
+    <script src="frontEnd/src/index.js"></script>
+</body>
+
+</html>
