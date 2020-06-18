@@ -108,10 +108,9 @@ main {
     height: 400px;
     background-color: #252525;
 }
-.btnAlign {
+#btnAlign {
     position: absolute;
     top: 0;
-
 }
 #endGame {
     position: relative;
