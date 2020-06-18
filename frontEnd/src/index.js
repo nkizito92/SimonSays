@@ -1,6 +1,6 @@
+
 const uRLs = "https://simon-says-back-end.herokuapp.com"
-const localURL = "http://localhost:3000"
-let btn = new ButtonsAdapter(`${localURL}/buttons`);
+let btn = new ButtonsAdapter(`${uRLs}/buttons`);
 const main = document.querySelector("main");
 const startGame = document.querySelector("#startbtn");
 let points = document.querySelector("#points");
@@ -138,12 +138,12 @@ function userForm() {
   yourScore.hidden = true;
   yourScore.value = point - 1;
 }
-let theUsers = new UsersAdapter(`${localURL}/users`);
+let theUsers = new UsersAdapter(`${uRLs}/users`);
 function submitUser(name, scored) {
   theUsers.fetchScore(name, scored);
 }
 // Create user
-let displayThe = new GamesAdapter(`${localURL}/games`);
+let displayThe = new GamesAdapter(`${uRLs}/games`);
 function createTheUser() {
 
   const createUser = document.querySelector("#createUser");
