@@ -4,22 +4,58 @@
 #   Ensure the SQLite 3 gem is defined in your Gemfile
 #   gem 'sqlite3'
 #
+# default: &default
+#   adapter: sqlite3
+#   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+#   timeout: 5000
+#####################
+#      sqlite 3     #
+#####################
+# development:
+#   <<: *default
+#   database: db/development.sqlite3
+
+# # Warning: The database defined as "test" will be erased and
+# # re-generated from your development database when you run "rake".
+# # Do not set this db to the same as development or production.
+# test:
+#   <<: *default
+#   database: db/test.sqlite3
+
+
+#####################
+#   postgresql 3    #
+#####################
+
+
+
 default: &default
-  adapter: sqlite3
+  adapter: postgresql
+  encoding: utf8
+  user: postgres
+  post: 5432
+  password: doghee12
+  timeout: 5433
+  # For details on connection pooling, see Rails configuration guide
+  # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
 
 development:
   <<: *default
-  database: db/development.sqlite3
+  database: postgres
+  host: localhost
+  user: postgres
+  post: 5432
+  password: doghee12 
 
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
-test:
-  <<: *default
-  database: db/test.sqlite3
+
+
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  url: <%= ENV['postgres://pmbvgknfyqsxcg:df47ce63a8528e8871832410be1b3e5a8f25745999eafeca3a439cc81cdd9dee@ec2-18-232-143-90.compute-1.amazonaws.com:5432/dgkc3pkn1s2li
+'] %>
+  database: dgkc3pkn1s2li
+  host: ec2-18-232-143-90.compute-1.amazonaws.com
+  user: pmbvgknfyqsxcg
+  password: df47ce63a8528e8871832410be1b3e5a8f25745999eafeca3a439cc81cdd9dee
