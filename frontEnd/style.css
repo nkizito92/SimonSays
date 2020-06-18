@@ -213,3 +213,38 @@ form #createUser:active {
     border: wheat 1px solid;
 }
 }
+
+@media only screen and (max-width: 650px) {
+    main { 
+       margin: 0 auto;
+       max-width: 550px;
+       height: 250px;
+       background-color: #252525;
+   }
+   
+   #keysbuttons{
+       position: relative;
+       top: 50px;
+       width: 501.1px;
+       text-align: center;
+       margin: 0 auto;
+       padding: 0;
+   }
+   
+   #btnAlign {
+       position: absolute;
+       top: 0;
+       left: -55px ;
+   }
+   
+   #players {
+       width: 115px;
+       position: relative;
+       font-size: 0.9vw;
+       right: 204px;
+       padding: 10px;
+       bottom: 300px;
+       padding-left: 10px;
+       border: wheat 1px solid;
+   }
+   }
