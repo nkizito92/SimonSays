@@ -1,4 +1,4 @@
-let btn = new ButtonsAdapter("http://localhost:3000/buttons");
+let btn = new ButtonsAdapter("https://simon-says-back-end.herokuapp.com/buttons");
 const main = document.querySelector("main");
 const startGame = document.querySelector("#startbtn");
 let points = document.querySelector("#points");
@@ -104,7 +104,7 @@ function colorToggle(obj, color, time) {
 }
 
 function buttonSet() {
-  
+
   // End Game Button
   const endGame = document.createElement("button");
   endGame.innerHTML = "End Game";
@@ -134,12 +134,12 @@ function userForm() {
   yourScore.hidden = true;
   yourScore.value = point - 1;
 }
-let theUsers = new UsersAdapter("http://localhost:3000/users");
+let theUsers = new UsersAdapter("https://simon-says-back-end.herokuapp.com/users");
 function submitUser(name, scored) {
   theUsers.fetchScore(name, scored);
 }
 // Create user
-let displayThe = new GamesAdapter("http://localhost:3000/games");
+let displayThe = new GamesAdapter("https://simon-says-back-end.herokuapp.com/games");
 function createTheUser() {
   const createUser = document.querySelector("#createUser");
   let NewUser = document.querySelector("#name");
