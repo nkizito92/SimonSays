@@ -3,6 +3,29 @@
     margin: 0 auto ;
 }
 
+::-webkit-scrollbar {
+    min-width: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #363636;
+    border-radius: 6px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: black;
+  }
+  
+  ::-webkit-scrollbar-thumb:active {
+    background-color: white;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: #a0a0a0;
+    border-radius: 6px;
+  }
+  
+
 body {
     background-color: #808080;
 }
@@ -14,13 +37,15 @@ div {
 }
 #players {
     width: 206px;
+    height: 350px;
     position: relative;
-    font-size: 0.9vw;
+    font-size: 0.7vw;
     right: 209px;
     padding: 10px;
     bottom: 395px;
     padding-left: 10px;
     border: wheat 1px solid;
+    overflow-y: scroll;
 }
 
 #points {
@@ -217,12 +242,13 @@ form #createUser:active {
 
 #players {
     width: 115px;
+    height: 200px;
     position: relative;
-    font-size: 0.9vw;
     right: 204px;
     padding: 10px;
     bottom: 300px;
     padding-left: 10px;
     border: wheat 1px solid;
+    overflow-y: scroll;
 }
 }

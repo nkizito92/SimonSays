@@ -1,6 +1,6 @@
-let onlineUrl = "https://simon-says-back-end.herokuapp.com"
-let localUrl = "http://localhost:3000/"
-const uRLs = "https://simon-says-back-end.herokuapp.com"
+const onlineUrl = "https://simon-says-back-end.herokuapp.com"
+const localUrl = "http://localhost:3000/"
+const uRLs = onlineUrl
 let btn = new ButtonsAdapter(`${uRLs}/buttons`);
 const main = document.querySelector("main");
 const startGame = document.querySelector("#startbtn");
@@ -30,9 +30,11 @@ let checkIndex = 0;
 function startsTheGame() {
   welcome.hidden = true;
   startGame.hidden = true;
-  if (keyButtons.childElementCount === 0) {
+  let buttonCount = keyButtons.childElementCount
+  if (buttonCount === 0) {
     loading.innerHTML = "Loading..."
-    btn.fetchButtons();
+    // btn.fetchButtons();
+    setTimeout(() => btn.fetchButtons(), 500);
   }
   points.innerHTML = `Score: ${point}`;
   point++;
@@ -40,7 +42,7 @@ function startsTheGame() {
   checkIndex = 0;
   startGame.removeEventListener("click", startsTheGame);
   buttonSet();
-  setTimeout(() => cpuPressbuttons(), 3000);
+  setTimeout(() => cpuPressbuttons(), 3000)
 }
 
 //cpu clicks buttons set
