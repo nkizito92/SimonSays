@@ -31,7 +31,7 @@ function startsTheGame() {
   welcome.hidden = true;
   startGame.hidden = true;
   btn.fetchButtons();
-  if (keyButtons.childElementCount !== 6) {
+  if (keyButtons.childElementCount === 0) {
     loading.innerHTML = "Loading..."
   }
   points.innerHTML = `Score: ${point}`;
