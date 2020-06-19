@@ -5,8 +5,8 @@ class GamesAdapter {
 
   fetchGames() {
     fetch(this.baseURL)
-.then(res => res.json())
-   .then(games => {
+      .then(res => res.json())
+      .then(games => {
         for (let game in games) {
           new Game(games[game]);
         }

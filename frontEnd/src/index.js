@@ -1,5 +1,6 @@
-
-const uRLs = "https://simon-says-back-end.herokuapp.com"
+// http://localhost:3000
+// https://simon-says-back-end.herokuapp.com
+const uRLs = " http://localhost:3000"
 let btn = new ButtonsAdapter(`${uRLs}/buttons`);
 const main = document.querySelector("main");
 const startGame = document.querySelector("#startbtn");
@@ -29,8 +30,9 @@ let checkIndex = 0;
 function startsTheGame() {
   welcome.hidden = true;
   startGame.hidden = true;
-  if (keyButtons.childElementCount === 0) {
-    btn.fetchButtons();
+  btn.fetchButtons();
+  if (keyButtons.childElementCount !== 6) {
+    loading.innerHTML = "Loading..."
   }
   points.innerHTML = `Score: ${point}`;
   point++;

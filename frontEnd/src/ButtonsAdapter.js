@@ -6,10 +6,12 @@ class ButtonsAdapter {
     fetch(this.url)
       .then(res => res.json())
       .then(btnObj => {
-         for (let btn in btnObj) {
+
+        for (let btn in btnObj) {
           let newBtn = new Button(btnObj[btn]);
           newBtn.fullyRender();
         }
-      });
+      }
+      );
   }
 }
