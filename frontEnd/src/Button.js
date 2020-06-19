@@ -14,11 +14,8 @@ class Button {
     }
 
     fullyRender() {
-        this.loading.innerHTML = "Loading..."
         this.keyPair.appendChild(this.keybtn)
-        if (this.keyPair.childElementCount === 6) {
-            this.loading.innerHTML = ""
-        }
+        this.loading.innerHTML = ""
         return this.keyPair
     }
 
