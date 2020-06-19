@@ -1,6 +1,6 @@
 // http://localhost:3000
 // https://simon-says-back-end.herokuapp.com
-const uRLs = " http://localhost:3000"
+const uRLs = "https://simon-says-back-end.herokuapp.com"
 let btn = new ButtonsAdapter(`${uRLs}/buttons`);
 const main = document.querySelector("main");
 const startGame = document.querySelector("#startbtn");
