@@ -18,8 +18,8 @@ class Button {
         this.keyPair.appendChild(this.keybtn)
         if (this.keyPair.childElementCount === 6) {
             this.loading.innerHTML = ""
-            return this.keyPair
         }
+        return this.keyPair
     }
 
     static removeButtons() {
