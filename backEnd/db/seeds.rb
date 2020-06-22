@@ -11,6 +11,6 @@
     game2 = Game.create(user_id: james.id,  score: 10)
     james.games << game
     james.games << game2
-    ames.games.build([{score: 80}, {score: 10} ])
+    ames.games.build([{score: 15}, {score: 10} ])
     ames.save
     james.save

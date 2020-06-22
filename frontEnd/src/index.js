@@ -33,8 +33,10 @@ function startsTheGame() {
   let buttonCount = keyButtons.childElementCount
   if (buttonCount === 0) {
     loading.innerHTML = "Loading..."
-    // btn.fetchButtons();
-    setTimeout(() => btn.fetchButtons(), 500);
+    setTimeout(() => {
+      btn.fetchButtons()
+      cpuWaitingForBtns();
+    }, 3500);
   }
   points.innerHTML = `Score: ${point}`;
   point++;
@@ -42,6 +44,11 @@ function startsTheGame() {
   checkIndex = 0;
   startGame.removeEventListener("click", startsTheGame);
   buttonSet();
+  setTimeout(() => cpuPressbuttons(), 3000)
+
+}
+
+let cpuWaitingForBtns = () => {
   setTimeout(() => cpuPressbuttons(), 3000)
 }
 
