@@ -123,12 +123,20 @@ function checkUsersClick(plyNum, cpuArr) {
   }
   else if (cpuArr[checkIndex] !== plyNum) {
     lifePoints--
+    keyButtons.children[plyNum].firstElementChild.pause()
+    let failedSounds = {
+      0: document.querySelector("#failSound2"),
+      1: document.querySelector("#failSound3")
+    }
+    failedSounds[Math.floor(2 * Math.random(1))].play()
     checkIndex = 0;
     life.innerHTML = `Lives: ${lifePoints}`
     setTimeout(() => rePressCpuButtons(cpuArr), 3000)
   }
 
   if (lifePoints === 0) {
+    document.querySelector("#failSound2").pause()
+    document.querySelector("#failSound3").pause()
     plyrSelectedBtns = [];
     failedGame();
   }
@@ -148,6 +156,7 @@ function failedGame() {
 }
 
 keyButtons.addEventListener("click", e => {
+
   e.target.querySelector("audio").load();
   e.target.querySelector("audio").play();
   clicked(e, compArrSet);
