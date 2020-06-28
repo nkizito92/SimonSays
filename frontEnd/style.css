@@ -35,6 +35,14 @@ div {
     width: auto;
     color: white;
 }
+#life {
+    padding: 20px 0;
+    width: auto;
+    color: white;
+    position: relative;
+    text-align: center;
+    bottom: 50px;
+}
 #players {
     width: 206px;
     height: 350px;
@@ -48,6 +56,16 @@ div {
     overflow-y: scroll;
 }
 
+#easy {
+    position: relative;
+    color: #adff2f;
+    left: 250px;
+}
+#hard {
+    position: relative;
+    color: #ffaa0d;
+    left: 280px;
+}
 #points {
     position: relative;
     text-align: center;
@@ -58,7 +76,7 @@ div {
 
 #keysbuttons{
     position: relative;
-    top: 120px;
+    top: 80px;
     width: 501.1px;
     text-align: center;
     margin: 0 auto;

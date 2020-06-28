@@ -3,23 +3,44 @@ const localUrl = "http://localhost:3000/"
 const uRLs = onlineUrl
 let btn = new ButtonsAdapter(`${uRLs}/buttons`);
 const main = document.querySelector("main");
+const easy = document.querySelector("#easy")
+const hard = document.querySelector("#hard")
 const startGame = document.querySelector("#startbtn");
 let points = document.querySelector("#points");
 let point = 0;
 const keyButtons = document.querySelector("#keysbuttons");
 let playerScore = document.querySelector("#players")
 playerScore.hidden = true;
+let lifePoints = 2;
+easy.addEventListener("click", () => {
+  lifeScore(lifePoints = 3)
+  document.querySelector("#startGame").play();
+  startsTheGame();
+})
+hard.addEventListener("click", () => {
+  lifeScore(lifePoints = 1)
+  document.querySelector("#startGame").play();
+  startsTheGame();
+})
+let life = document.querySelector("#life")
+let lifeScore = (lifepoint) => life.innerHTML = `Lives: ${lifepoint}`
+lifeScore(lifePoints);
+life.hidden = true;
 // Welcoming
 let welcome = document.querySelector("#welcome");
 welcome.addEventListener("click", welcoming);
 function welcoming() {
   startGame.hidden = true;
+  easy.hidden = true;
+  hard.hidden = true;
   welcome.innerHTML =
     "Press what Simon clicks <br/><br/><br/> Simon's <span style=color:red;>Red</span> and you're <span style=color:green;>green</span>!! <br/><br/> Remembering The Sound is Key!!";
   setTimeout(() => {
     welcome.innerHTML =
       "Press Start to Play the game!! <br/> <br/> Click here for <br/> instructions again!!";
     startGame.hidden = false;
+    easy.hidden = false;
+    hard.hidden = false;
   }, 7000);
 }
 btn.fetchButtons()
@@ -29,12 +50,16 @@ let plyrSelectedBtns = [];
 let compArrSet = [];
 let checkIndex = 0;
 function startsTheGame() {
+  easy.hidden = true
+  hard.hidden = true
+  life.hidden = false;
   welcome.hidden = true;
   startGame.hidden = true;
   let buttonCount = keyButtons.childElementCount
   if (buttonCount === 0) {
     loading.innerHTML = "Loading..."
-  } else (setTimeout(() => cpuPressbuttons(), 3000))
+  } else if (buttonCount === 6)
+    (setTimeout(() => cpuPressbuttons(), 3000))
   keyButtons.hidden = false;
   points.innerHTML = `Score: ${point}`;
   point++;
@@ -64,6 +89,23 @@ function cpuPressbuttons() {
     } else clearInterval;
   }, 500);
 }
+function rePressCpuButtons(cpu) {
+  plyrSelectedBtns = [];
+  var arrSet = new Array();
+  let started = -1;
+
+  arrSet = [...cpu]
+  compArrSet = arrSet;
+  setInterval(() => {
+    if (started++ < arrSet.length - 1) {
+      let btton = document.querySelectorAll(".keybutton");
+      let selectedBtn = btton[arrSet[started]];
+      selectedBtn.querySelector("audio").load();
+      selectedBtn.querySelector("audio").play();
+      colorToggle(selectedBtn, "red", 900 - point * 100);
+    } else clearInterval;
+  }, 500);
+}
 
 //User clicks buttons
 function clicked(e, cpuArr) {
@@ -78,7 +120,15 @@ function checkUsersClick(plyNum, cpuArr) {
     if (plyrSelectedBtns.length === cpuArr.length) {
       startsTheGame();
     }
-  } else {
+  }
+  else if (cpuArr[checkIndex] !== plyNum) {
+    lifePoints--
+    checkIndex = 0;
+    life.innerHTML = `Lives: ${lifePoints}`
+    setTimeout(() => rePressCpuButtons(cpuArr), 3000)
+  }
+
+  if (lifePoints === 0) {
     plyrSelectedBtns = [];
     failedGame();
   }
