@@ -114,10 +114,12 @@ function clicked(e, cpuArr) {
   checkUsersClick(plyNum, cpuArr);
 }
 function checkUsersClick(plyNum, cpuArr) {
+  debugger
   if (cpuArr[checkIndex] === plyNum) {
     plyrSelectedBtns.push(plyNum);
     checkIndex++;
     if (plyrSelectedBtns.length === cpuArr.length) {
+      document.querySelector("#passed").play()
       startsTheGame();
     }
   }
