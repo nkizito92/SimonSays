@@ -76,8 +76,9 @@ div {
 
 #keysbuttons{
     position: relative;
+    height: 0px;
     top: 80px;
-    width: 501.1px;
+    width: 521.1px;
     text-align: center;
     margin: 0 auto;
     padding: 0;
