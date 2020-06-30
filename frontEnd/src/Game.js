@@ -14,7 +14,7 @@ class Game {
   static renderHighscores() {
     let sortedGames = Game.all.sort((a, b) => b.score - a.score);
     sortedGames.forEach(game => {
-      game.h1.innerHTML = `${game.user.name}'s score: ${game.score}</br> </br>`;
+      game.h1.innerHTML = `${game.user.name}'s score: ${game.score} </br>`;
       game.players.appendChild(game.h1);
     });
   }

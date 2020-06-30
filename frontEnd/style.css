@@ -45,7 +45,7 @@ div {
 }
 #players {
     width: 206px;
-    height: 350px;
+    height: 154px;
     position: relative;
     font-size: 0.7vw;
     right: 209px;
@@ -54,6 +54,18 @@ div {
     padding-left: 10px;
     border: wheat 1px solid;
     overflow-y: scroll;
+}
+
+#yourScore {
+    position: relative;
+    right: 199px;
+    bottom: 337px;
+    width: 400px;
+    text-align: center;
+    margin: 0 auto;
+}
+#yourScore h1 {
+    font-size: 1.35vw;
 }
 
 #easy {

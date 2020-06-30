@@ -10,7 +10,9 @@ let points = document.querySelector("#points");
 let point = 0;
 const keyButtons = document.querySelector("#keysbuttons");
 let playerScore = document.querySelector("#players")
+let youScored = document.querySelector("#yourScore")
 playerScore.hidden = true;
+youScored.hidden = true;
 let lifePoints = 2;
 easy.addEventListener("click", () => {
   lifeScore(lifePoints = 3)
@@ -195,6 +197,7 @@ startGame.addEventListener("click", () => {
 // Form action
 let form = document.querySelector("form");
 function userForm() {
+  youScored.hidden = false
   playerScore.hidden = false;
   points.hidden = false;
   form.hidden = false;
@@ -224,9 +227,6 @@ function createTheUser() {
       NewUser.placeholder = "Name is Required";
     } else {
       form.hidden = true;
-      points.innerHTML = "Score Posted!!";
-      points.style.fontSize = "32pt";
-      points.style.top = "auto";
       document.querySelector("#audioPost").play();
       submitUser(NewUser.value, point - 1);
       setTimeout(() => window.location.reload(), 5000);

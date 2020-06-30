@@ -7,6 +7,7 @@ class User {
     this.highscore = highscore;
 
     this.players = document.querySelector("#players");
+    this.youScored = document.querySelector("#yourScore");
     this.h1 = document.createElement("h1");
     User.all.push(this);
   }
@@ -14,6 +15,9 @@ class User {
   postScore() {
     this.h1.innerHTML = `${this.name}'s HighScore: ${this.highscore} </br> </br>`;
     this.players.appendChild(this.h1);
-    return this.players;
+    this.youScored.appendChild(this.h1);
+    return (this.players,
+      this.youScored
+    )
   }
 }
