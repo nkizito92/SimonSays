@@ -103,14 +103,12 @@ function rePressCpuButtons(cpu) {
   plyrSelectedBtns = [];
   var arrSet = new Array();
   let started = -1;
-
   arrSet = [...cpu]
   compArrSet = arrSet;
   setInterval(() => {
     if (started++ < arrSet.length - 1) {
       let btton = document.querySelectorAll(".keybutton");
       let selectedBtn = btton[arrSet[started]];
-      selectedBtn.querySelector("audio").load();
       selectedBtn.querySelector("audio").play();
       colorToggle(selectedBtn, "red", 900 - point * 100);
     } else clearInterval;
@@ -167,7 +165,6 @@ function failedGame() {
 }
 
 keyButtons.addEventListener("click", e => {
-
   e.target.querySelector("audio").load();
   e.target.querySelector("audio").play();
   clicked(e, compArrSet);
@@ -180,12 +177,7 @@ function colorToggle(obj, color, time) {
 }
 
 function buttonSet() {
-
-  // End Game Button
   const endGame = document.querySelector("#endGame");
-  // endGame.innerHTML = "End Game";
-  // endGame.id = "endGame";
-  // main.appendChild(endGame);
   endOrRestartGameBtnConfig(endGame);
 }
 
