@@ -43,7 +43,7 @@ function welcoming() {
     hard.hidden = false;
   }, 7000);
 }
-btn.fetchButtons()
+
 keyButtons.hidden = true;
 // player and buttons set.
 let plyrSelectedBtns = [];
@@ -58,8 +58,8 @@ function startsTheGame() {
   let buttonCount = keyButtons.childElementCount
   if (buttonCount === 0) {
     loading.innerHTML = "Loading..."
-  } else if (buttonCount === 6)
-    (setTimeout(() => cpuPressbuttons(), 3000))
+    btn.fetchButtons()
+  } else setTimeout(() => cpuPressbuttons(), 3000)
   keyButtons.hidden = false;
   points.innerHTML = `Score: ${point}`;
   point++;
@@ -89,6 +89,16 @@ function cpuPressbuttons() {
     } else clearInterval;
   }, 500);
 }
+
+function startPressCpuButton(cpu) {
+  plyrSelectedBtns = [];
+  var arrSet = new Array();
+  arrSet.push(cpu[0])
+  compArrSet = arrSet;
+  if (keyButtons.childElementCount === 6)
+    (setTimeout(() => rePressCpuButtons(compArrSet), 300))
+}
+
 function rePressCpuButtons(cpu) {
   plyrSelectedBtns = [];
   var arrSet = new Array();
@@ -114,7 +124,6 @@ function clicked(e, cpuArr) {
   checkUsersClick(plyNum, cpuArr);
 }
 function checkUsersClick(plyNum, cpuArr) {
-  debugger
   if (cpuArr[checkIndex] === plyNum) {
     plyrSelectedBtns.push(plyNum);
     checkIndex++;
