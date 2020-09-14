@@ -26,9 +26,7 @@
 }
 
 body {
-  background: linear-gradient(135deg, #000, #fff, black 50%);
-  height: 800px;
-  overflow: hidden;
+  background-color: #000;
 }
 
 div {
@@ -171,11 +169,11 @@ main {
   border-radius: 10px;
   padding: 10px;
   background-color: #252525;
-  transform: translate(0%, 25%);
-  -webkit-transform: translate(0%, 25%);
-  -moz-transform: translate(0%, 25%);
-  -ms-transform: translate(0%, 25%);
-  -o-transform: translate(0%, 25%);
+  transform: translate(0%, 10%);
+  -webkit-transform: translate(0%, 10%);
+  -moz-transform: translate(0%, 10%);
+  -ms-transform: translate(0%, 10%);
+  -o-transform: translate(0%, 10%);
 }
 #btnAlign {
   position: absolute;
