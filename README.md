@@ -1,16 +1,20 @@
 # Welcome to SimonSays
-  
-In this game here you will have to do what Simon does, you got 3 lives and each time you fail to copy Simon you lose a life. Zero lives means gameover for you, so try not to fail and get a HighScore. Enjoy the game!!
+
+In this game here you will have to do what Simon does, you got 3 lives and each time you fail to copy Simon you lose a life. Zero lives means GameOver for you, so try not to fail and get a HighScore. Enjoy the game!!
+
+## Visit the App
+
+[SimonSays](https://nkizito92.github.io/SimonSays/)
 
 ## Usage
 
 To get started on your `terminal` run `rails s`.
-If those commands do not work you may need to run `rails db:migrate` and `rails db:seed` to build the database first. Then you may be able to run the `localhost` with the command `rails s`. 
+If those commands do not work you may need to run `rails db:migrate` and `rails db:seed` to build the database first. Then you may be able to run the `localhost` with the command `rails s`.
 
 ```ruby
 
 => Booting Puma
-=> Rails 5.2.3 application starting in development 
+=> Rails 5.2.3 application starting in development
 => Run `rails server -h` for more startup options
 Puma starting in single mode...
 * Version 3.12.2 (ruby 2.6.1-p33), codename: Llamas in Pajamas
@@ -18,11 +22,12 @@ Puma starting in single mode...
 * Environment: development
 * Listening on tcp://localhost:3000
 Use Ctrl-C to stop
- 
-```
-You need to see `localhost:3000` this is what you'll need to run in the background. Next Open up the index.html folder and you see the game waiting for you to click start. 
-### Congrates You've Done It!!!
 
+```
+
+You need to see `localhost:3000` this is what you'll need to run in the background. Next Open up the index.html folder and you see the game waiting for you to click start.
+
+### Congrates You've Done It!!!
 
 ## Development
 
@@ -33,7 +38,6 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/nkizito92/SimonSays. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/nkizito92/SimonSays/blob/master/CODE_OF_CONDUCT.md).
-
 
 ## License
 
