@@ -1,10 +1,14 @@
 const onlineUrl = "https://simon-says-back-end.herokuapp.com"
 const localUrl = "http://localhost:3000/"
-const uRLs = onlineUrl
+const uRLs = localUrl
 let btn = new ButtonsAdapter(`${uRLs}/buttons`);
 const main = document.querySelector("main");
 const easy = document.querySelector("#easy")
 const hard = document.querySelector("#hard")
+
+const easyMode = "easy"
+const hardMode = "hard"
+let difficultySet = ""
 const startGame = document.querySelector("#startbtn");
 let points = document.querySelector("#points");
 let point = 0;
@@ -17,12 +21,14 @@ let lifePoints = 2;
 easy.addEventListener("click", () => {
   lifeScore(lifePoints = 3)
   document.querySelector("#startGame").play();
-  startsTheGame();
+  startsTheGame(easyMode);
+  difficultySet = easyMode;
 })
 hard.addEventListener("click", () => {
   lifeScore(lifePoints = 1)
   document.querySelector("#startGame").play();
-  startsTheGame();
+  startsTheGame(hardMode);
+  difficultySet = hardMode;
 })
 let life = document.querySelector("#life")
 let lifeScore = (lifepoint) => life.innerHTML = `Lives: ${lifepoint}`
@@ -51,7 +57,7 @@ keyButtons.hidden = true;
 let plyrSelectedBtns = [];
 let compArrSet = [];
 let checkIndex = 0;
-function startsTheGame() {
+function startsTheGame(difficulty) {
   easy.hidden = true
   hard.hidden = true
   life.hidden = false;
@@ -61,7 +67,9 @@ function startsTheGame() {
   if (buttonCount === 0) {
     loading.innerHTML = "Loading..."
     btn.fetchButtons()
-  } else setTimeout(() => cpuPressbuttons(), 3000)
+  } else {
+    setTimeout(() => cpuPressbuttons(difficulty), 3000)
+  }
   keyButtons.hidden = false;
   points.innerHTML = `Score: ${point}`;
   point++;
@@ -71,20 +79,29 @@ function startsTheGame() {
   startGame.removeEventListener("click", startsTheGame);
   buttonSet();
 }
-
+let copyArr = [4]
 //cpu clicks buttons set
-function cpuPressbuttons() {
-  var arrSet = new Array();
+function cpuPressbuttons(difficulty) {
   let started = -1;
-  for (let i = 0; i < point; i++) {
-    let indexSet = Math.floor(6 * Math.random(1));
-    arrSet.push(indexSet);
-  }
-  compArrSet = arrSet;
+  if(difficulty === "easy"){
+    // if(copyArr.length < point) {
+      let indexSet = Math.floor(6 * Math.random(1));
+      copyArr.push(indexSet)
+    // }
+
+  } else {
+      copyArr = new Array();
+    for (let i = 0; i < point; i++) {
+        let indexSet = Math.floor(6 * Math.random(1));
+        copyArr.push(indexSet);
+      }
+    }
+  
+  compArrSet = copyArr;
   setInterval(() => {
-    if (started++ < arrSet.length - 1) {
+    if (started++ < compArrSet.length - 1) {
       let btton = document.querySelectorAll(".keybutton");
-      let selectedBtn = btton[arrSet[started]];
+      let selectedBtn = btton[compArrSet[started]];
       selectedBtn.querySelector("audio").load();
       selectedBtn.querySelector("audio").play();
       colorToggle(selectedBtn, "red", 900 - point * 100);
@@ -111,6 +128,7 @@ function rePressCpuButtons(cpu) {
     if (started++ < arrSet.length - 1) {
       let btton = document.querySelectorAll(".keybutton");
       let selectedBtn = btton[arrSet[started]];
+      selectedBtn.querySelector("audio").load();
       selectedBtn.querySelector("audio").play();
       colorToggle(selectedBtn, "red", 900 - point * 100);
     } else clearInterval;
@@ -129,7 +147,7 @@ function checkUsersClick(plyNum, cpuArr) {
     checkIndex++;
     if (plyrSelectedBtns.length === cpuArr.length) {
       document.querySelector("#passed").play()
-      startsTheGame();
+      startsTheGame(difficultySet);
     }
   }
   else if (cpuArr[checkIndex] !== plyNum) {
@@ -173,7 +191,7 @@ keyButtons.addEventListener("click", e => {
 });
 function colorToggle(obj, color, time) {
   obj.style.backgroundColor = color;
-  if (time <= 200) time = 200;
+  if (time <= 100) time = 100;
   if (obj.style.backgroundColor === color)
     setTimeout(() => (obj.style.backgroundColor = ""), time);
 }

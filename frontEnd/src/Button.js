@@ -16,7 +16,8 @@ class Button {
     fullyRender() {
         this.keyPair.appendChild(this.keybtn)
         this.loading.innerHTML = ""
-        setTimeout(() => startPressCpuButton([Math.floor(6 * Math.random(1))]), 3000)
+        // setTimeout(() => startPressCpuButton([Math.floor(6 * Math.random(1))]), 3000)
+        setTimeout(() => cpuPressbuttons(), 3000)
         return this.keyPair
     }
 
